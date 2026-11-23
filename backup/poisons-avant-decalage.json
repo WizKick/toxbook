@@ -1,0 +1,2331 @@
+[
+    {
+        "n":  "Paracétamol (Doliprane, Efferalgan)",
+        "c":  "Médicament",
+        "a":  "Pharmacie, sans ordonnance",
+        "d":  "Hépatotoxique dès 150 mg/kg ; mortel 15–25 g",
+        "t":  "24–72 h, signes trompeurs",
+        "e":  "Nécrose hépatique massive, insuffisance hépatique, mort en 4 à 7 jours",
+        "s":  "Phase 1 : nausées, vomissements, pâleur. Phase 2 : rémission apparente. Phase 3 : ictère, douleur hypochondre droit, encéphalopathie",
+        "an":  "N-acétylcystéine, efficace avant 8–10 h ; charbon activé avant 2 h",
+        "m":  "Aucun",
+        "no":  "Le poison le plus accessible et le plus sournois : goût neutre, délai long, ressemble à une grippe. 1 boîte de 8 g suffit",
+        "tg":  [
+                   "MORT",
+                   "VOMI",
+                   "NEURO",
+                   "FOIE"
+               ],
+        "di":  5,
+        "st":  false,
+        "id":  "001",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-24 h|Nausées, vomissements, pâleur, sueurs",
+                   "T+24-72 h|Rémission trompeuse, douleur hypochondre droit",
+                   "T+72-96 h|Ictère, encéphalopathie, insuffisance hépatique"
+               ],
+        "se":  {
+                   "tox":  "\u003e 150 mg/kg",
+                   "let":  "15-25 g (adulte)",
+                   "conc":  "Paracétamolémie \u003e 200 µg/mL à H4"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Aspirine (acide acétylsalicylique)",
+        "c":  "Médicament",
+        "a":  "Pharmacie, sans ordonnance",
+        "d":  "Toxique \u003e 150 mg/kg ; mortel \u003e 300 mg/kg (≈ 20 g)",
+        "t":  "2–6 h",
+        "e":  "Acidose métabolique, hyperthermie, hémorragies, œdème pulmonaire, coma",
+        "s":  "Acouphènes, hyperventilation, sueurs, vomissements, confusion",
+        "an":  "Charbon activé, alcalinisation urinaire au bicarbonate de sodium, hémodialyse",
+        "m":  "—",
+        "no":  "L\u0027acouphène est le signe d\u0027appel quasi pathognomonique",
+        "tg":  [
+                   "VOMI",
+                   "NEURO",
+                   "COMA",
+                   "HEMO",
+                   "ACIDOSE"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "002",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-6 h|Acouphènes, hyperventilation, sueurs",
+                   "T+6-24 h|Acidose, hyperthermie, troubles de conscience"
+               ],
+        "se":  {
+                   "tox":  "\u003e 150 mg/kg",
+                   "let":  "\u003e 300 mg/kg (â‰ˆ 20 g)",
+                   "conc":  "Salicylémie \u003e 300 mg/L"
+               },
+        "cf":  [
+                   "001"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "BICARBONATE DE SODIUM"
+               ]
+    },
+    {
+        "n":  "Éthylène glycol (antigel, LDR)",
+        "c":  "Industriel",
+        "a":  "Grande surface, auto",
+        "d":  "Mortel dès 1,5 mL/kg (≈ 100 mL)",
+        "t":  "Phase 1 : 30 min–12 h",
+        "e":  "Acidose métabolique sévère, cristaux d\u0027oxalate, insuffisance rénale irréversible, mort",
+        "s":  "Ébriété sans odeur d\u0027alcool, nausées, dyspnée, oligurie à J2",
+        "an":  "Fomépizole ou éthanol (compétition enzymatique), hémodialyse",
+        "m":  "—",
+        "no":  "Goût sucré, se mélange parfaitement au vin ou au soda",
+        "tg":  [
+                   "MORT",
+                   "NEURO",
+                   "REIN",
+                   "RESPIR",
+                   "ACIDOSE"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "003",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-12 h|Ivresse trompeuse, sans odeur d\u0027alcool",
+                   "T+12-24 h|Acidose métabolique, polypnée",
+                   "T+24-72 h|Insuffisance rénale anurique"
+               ],
+        "se":  {
+                   "tox":  "\u003e 0,1 mL/kg",
+                   "let":  "1,5 mL/kg (â‰ˆ 100 mL)",
+                   "conc":  "Trou anionique, calcémie basse"
+               },
+        "cf":  [
+                   "004",
+                   "016"
+               ],
+        "ad":  [
+                   "FOMEPIZOLE ou ETHANOL",
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Méthanol (alcool à brûler, lave-glace)",
+        "c":  "Industriel",
+        "a":  "Grande surface, droguerie",
+        "d":  "10 mL : cécité ; 30–60 mL : mort",
+        "t":  "6–24 h (latence trompeuse)",
+        "e":  "Acidose métabolique, atrophie du nerf optique, cécité définitive, coma, mort",
+        "s":  "Vision floue type « neige », mydriase, douleur abdominale",
+        "an":  "Éthanol ou fomépizole, bicarbonate, hémodialyse",
+        "m":  "—",
+        "no":  "L\u0027antidote est littéralement l\u0027alcool éthylique : mécanisme de compétition sur l\u0027alcool déshydrogénase",
+        "tg":  [
+                   "MORT",
+                   "COMA",
+                   "CECITE",
+                   "ACIDOSE",
+                   "DIGESTIF"
+               ],
+        "di":  2,
+        "st":  false,
+        "id":  "004",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-12 h|Ébriété, céphalées",
+                   "T+12-24 h|Acidose, troubles visuels",
+                   "T+24-48 h|Cécité définitive, coma"
+               ],
+        "se":  {
+                   "tox":  "\u003e 0,1 mL/kg",
+                   "let":  "30-60 mL",
+                   "conc":  "Trou anionique \u003e 20"
+               },
+        "cf":  [
+                   "003"
+               ],
+        "ad":  [
+                   "FOMEPIZOLE ou ETHANOL"
+               ]
+    },
+    {
+        "n":  "Eau de Javel (hypochlorite de sodium)",
+        "c":  "Ménager",
+        "a":  "Partout",
+        "d":  "10–15 mL de concentré 9,6 %",
+        "t":  "Immédiat",
+        "e":  "Brûlure caustique de l\u0027œsophage, perforation, sténose",
+        "s":  "Douleur rétrosternale, hypersalivation, vomissements",
+        "an":  "Pas de charbon ; endoscopie ; ne pas faire vomir",
+        "m":  "+ acide (détartrant WC) = dégagement de chlore gazeux ; + ammoniaque = chloramines",
+        "no":  "Le mélange Javel + détartrant est le classique du placard de salle de bain",
+        "tg":  [
+                   "VOMI",
+                   "CAUSTIQUE"
+               ],
+        "di":  1,
+        "st":  false,
+        "id":  "005",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION",
+                   "OCULAIRE"
+               ],
+        "ch":  [
+                   "Immédiat|Brûlure buccale, toux, larmoiement",
+                   "T+1-6 h|œdème laryngé si concentrée"
+               ],
+        "se":  {
+                   "tox":  "10 mL (concentrée)",
+                   "let":  "30-60 mL",
+                   "conc":  "pH \u003e 11"
+               },
+        "cf":  [
+                   "007",
+                   "008"
+               ],
+        "ad":  [
+                   "EAU"
+               ]
+    },
+    {
+        "n":  "Ammoniaque (hydroxyde d\u0027ammonium)",
+        "c":  "Ménager",
+        "a":  "Grande surface",
+        "d":  "10–20 mL de solution 20 %",
+        "t":  "Immédiat",
+        "e":  "Caustique, œdème laryngé, détresse respiratoire",
+        "s":  "Odeur piquante, toux, dysphonie, stridor",
+        "an":  "Eau, endoscopie, aérosols",
+        "m":  "+ Javel = chloramines ; + acide = vapeurs irritantes",
+        "no":  "Les vapeurs seules peuvent suffoquer dans un lieu confiné",
+        "tg":  [
+                   "RESPIR",
+                   "CAUSTIQUE"
+               ],
+        "di":  1,
+        "st":  false,
+        "id":  "006",
+        "vx":  [
+                   "INHALATION",
+                   "OCULAIRE",
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "Immédiat|Vapeurs suffocantes, spasme laryngé",
+                   "T+1-4 h|Brûlure des voies aériennes"
+               ],
+        "se":  {
+                   "tox":  "Quelques mL",
+                   "let":  "\u003e 30 mL",
+                   "conc":  "Vapeurs \u003e 25 ppm"
+               },
+        "cf":  [
+                   "005",
+                   "008"
+               ],
+        "ad":  [
+                   "EAU"
+               ]
+    },
+    {
+        "n":  "Chlore gazeux (mélange Javel + acide)",
+        "c":  "Gaz",
+        "a":  "Deux produits ménagers",
+        "d":  "Quelques mL suffisent dans une pièce fermée",
+        "t":  "Immédiat",
+        "e":  "Œdème pulmonaire lésionnel, hypoxémie, mort par asphyxie",
+        "s":  "Toux rauque, brûlure oculaire, cyanose, orthopnée",
+        "an":  "Air frais, oxygène, repos strict 24 h",
+        "m":  "Javel 9,6 % + acide chlorhydrique 20 % (détartrant)",
+        "no":  "Le mélange se fait à froid, jamais dans un récipient bouché",
+        "tg":  [
+                   "MORT",
+                   "RESPIR"
+               ],
+        "di":  2,
+        "st":  false,
+        "id":  "007",
+        "vx":  [
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "Immédiat|Toux, oppression, larmoiement",
+                   "T+1-6 h|œdème pulmonaire lésionnel"
+               ],
+        "se":  {
+                   "tox":  "Faible dose en pièce fermée",
+                   "let":  "Pièce confinée",
+                   "conc":  "\u003e 5 ppm"
+               },
+        "cf":  [
+                   "005",
+                   "008"
+               ],
+        "ad":  [
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Chloramines (mélange Javel + ammoniaque)",
+        "c":  "Gaz",
+        "a":  "Deux produits ménagers",
+        "d":  "Quelques mL",
+        "t":  "Immédiat",
+        "e":  "Irritation respiratoire sévère, œdème pulmonaire",
+        "s":  "Toux, larmoiement, dyspnée",
+        "an":  "Air frais, oxygène",
+        "m":  "Javel + ammoniaque ou produit vitres ammoniacé",
+        "no":  "Moins connu que le chlore, tout aussi dangereux",
+        "tg":  "RESPIR",
+        "di":  2,
+        "st":  false,
+        "id":  "008",
+        "vx":  [
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "Immédiat|Irritation, toux",
+                   "T+2-12 h|œdème pulmonaire"
+               ],
+        "se":  {
+                   "tox":  "Mélange Javel + ammoniaque",
+                   "let":  "Pièce confinée",
+                   "conc":  "Vapeurs irritantes"
+               },
+        "cf":  [
+                   "005",
+                   "007"
+               ],
+        "ad":  [
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Sel de cuisine (chlorure de sodium)",
+        "c":  "Aliment",
+        "a":  "Cuisine",
+        "d":  "\u003e 1 g/kg ; mortel 2–3 g/kg sans eau compensatoire",
+        "t":  "Quelques heures",
+        "e":  "Hypernatrémie, déshydratation neuronale, œdème cérébral, coma, mort",
+        "s":  "Soif intense, confusion, convulsions",
+        "an":  "Réhydratation lente, correction progressive de la natrémie",
+        "m":  "—",
+        "no":  "Un adulte avale facilement 150 g en une fois : c\u0027est la dose mortelle",
+        "tg":  [
+                   "MORT",
+                   "NEURO",
+                   "COMA",
+                   "CONVULS"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "009",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+1-4 h|Soif, vomissements",
+                   "T+4-24 h|Convulsions, coma hyperosmolaire"
+               ],
+        "se":  {
+                   "tox":  "\u003e 1 g/kg",
+                   "let":  "150 g (adulte)",
+                   "conc":  "Natrémie \u003e 155 mmol/L"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "EAU"
+               ]
+    },
+    {
+        "n":  "Chlorure de potassium (sels de régime)",
+        "c":  "Aliment",
+        "a":  "Pharmacie, rayon diététique",
+        "d":  "3–5 g par voie orale ; 2–4 g en IV",
+        "t":  "30 min–2 h",
+        "e":  "Hyperkaliémie, bloc cardiaque, arrêt cardiaque en asystolie",
+        "s":  "Paresthésies, faiblesse musculaire, onde T ample, élargissement du QRS",
+        "an":  "Gluconate de calcium, insuline-glucose, résine échangeuse",
+        "m":  "—",
+        "no":  "En IV directe, c\u0027est le moyen le plus rapide de provoquer un arrêt cardiaque",
+        "tg":  "CARDIAQUE",
+        "di":  3,
+        "st":  false,
+        "id":  "010",
+        "vx":  [
+                   "INGESTION",
+                   "INJECTION"
+               ],
+        "ch":  [
+                   "T+0-30 min|Paresthésies, faiblesse",
+                   "T+30-60 min|Bradycardie, arrêt cardiaque"
+               ],
+        "se":  {
+                   "tox":  "\u003e 0,5 mmol/kg",
+                   "let":  "IV directe non diluée",
+                   "conc":  "Kaliémie \u003e 6,5 mmol/L"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+
+               ]
+    },
+    {
+        "n":  "Bicarbonate de sodium (levure chimique, sel de Vichy)",
+        "c":  "Aliment",
+        "a":  "Cuisine, pharmacie",
+        "d":  "5–10 g ; \u003e 30 g = alcalose sévère",
+        "t":  "1–3 h",
+        "e":  "Alcalose métabolique, hypokaliémie, tétanie, rupture gastrique par dégagement de CO2",
+        "s":  "Crampes, fourmillements, spasmes",
+        "an":  "Réhydratation, potassium, arrêt de l\u0027apport",
+        "m":  "+ acide (vinaigre, citron) = effervescence massive de CO2",
+        "no":  "Un demi-paquet dans un verre d\u0027eau fermé sous pression peut distendre l\u0027estomac",
+        "tg":  "CONVULS",
+        "di":  3,
+        "st":  false,
+        "id":  "011",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-2 h|Odeur de goudron, vomissements",
+                   "T+6-24 h|Hémolyse si déficit en G6PD",
+                   "T+24-72 h|Ictère, urines noires"
+               ],
+        "se":  {
+                   "tox":  "\u003e 2 g",
+                   "let":  "5 g (enfant : 1 g)",
+                   "conc":  "Hémoglobinurie"
+               },
+        "cf":  [
+                   "012"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "BLEU DE METHYLENE"
+               ]
+    },
+    {
+        "n":  "Sel d\u0027Epsom (sulfate de magnésium)",
+        "c":  "Médicament",
+        "a":  "Pharmacie",
+        "d":  "\u003e 20 g",
+        "t":  "1–6 h",
+        "e":  "Hypermagnésémie, dépression respiratoire, bradycardie, arrêt cardiaque",
+        "s":  "Rougeur, hypotension, abolition des réflexes ostéotendineux",
+        "an":  "Gluconate de calcium IV",
+        "m":  "—",
+        "no":  "Effet laxatif massif qui masque le tableau",
+        "tg":  [
+                   "CARDIAQUE",
+                   "RESPIR"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "012",
+        "vx":  [
+                   "INGESTION",
+                   "CUTANE"
+               ],
+        "ch":  [
+                   "T+0-30 min|Goût amer, brûlure buccale",
+                   "T+30 min-6 h|Convulsions, agitation"
+               ],
+        "se":  {
+                   "tox":  "\u003e 1 g",
+                   "let":  "2 g (enfant : 0,5 g)",
+                   "conc":  "Camphrémie"
+               },
+        "cf":  [
+                   "011"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Naphtaline (boules anti-mites)",
+        "c":  "Ménager",
+        "a":  "Grande surface",
+        "d":  "5–15 g adulte ; 2 g enfant",
+        "t":  "1–24 h",
+        "e":  "Hémolyse aiguë (surtout si déficit en G6PD), méthémoglobinémie, ictère",
+        "s":  "Urines foncées, pâleur, cyanose ardoisée",
+        "an":  "Bleu de méthylène, transfusion si hémolyse sévère",
+        "m":  "—",
+        "no":  "Très toxique chez l\u0027enfant ; l\u0027odeur est facile à masquer",
+        "tg":  "HEMO",
+        "di":  1,
+        "st":  false,
+        "id":  "013",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-1 h|Ébriété, élocution troublée",
+                   "T+1-4 h|Hypoglycémie, hypothermie",
+                   "T+4-12 h|Coma, dépression respiratoire"
+               ],
+        "se":  {
+                   "tox":  "\u003e 1 g/kg",
+                   "let":  "3 g/kg",
+                   "conc":  "Alcoolémie \u003e 3 g/L"
+               },
+        "cf":  [
+                   "003",
+                   "014"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "GLUCAGON"
+               ]
+    },
+    {
+        "n":  "Camphre (boules, huile)",
+        "c":  "Ménager",
+        "a":  "Grande surface",
+        "d":  "1–2 g ingéré",
+        "t":  "15 min–2 h",
+        "e":  "Convulsions, dépression du système nerveux central",
+        "s":  "Odeur caractéristique de l\u0027haleine, agitation, spasmes",
+        "an":  "Symptomatique, benzodiazépines pour les convulsions",
+        "m":  "—",
+        "no":  "Ne jamais confondre avec l\u0027huile camphrée cutanée, bien plus concentrée",
+        "tg":  "CONVULS",
+        "di":  2,
+        "st":  false,
+        "id":  "014",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-30 min|Ivresse rapide, sans odeur",
+                   "T+30 min-2 h|Vomissements, hémorragie digestive",
+                   "T+2-6 h|Coma, hypotension"
+               ],
+        "se":  {
+                   "tox":  "\u003e 0,5 mL/kg",
+                   "let":  "\u003c 250 mL (adulte fragile)",
+                   "conc":  "Trou anionique, cétonémie"
+               },
+        "cf":  [
+                   "013"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Éthanol (alcool)",
+        "c":  "Aliment",
+        "a":  "Partout",
+        "d":  "3–4 g/kg (≈ 1 L de vin à 12°) ; coma \u003e 3 g/L",
+        "t":  "30–90 min",
+        "e":  "Dépression respiratoire, inhalation de vomissements, hypoglycémie, mort",
+        "s":  "Haleine, ataxie, myosis, coma",
+        "an":  "Thiamine + glucose, protection des voies aériennes",
+        "m":  "+ benzodiazépines = dépression respiratoire potentialisée",
+        "no":  "L\u0027alcool est le co-facteur de presque tous les surdosages mortels domestiques",
+        "tg":  [
+                   "MORT",
+                   "VOMI",
+                   "NEURO",
+                   "COMA",
+                   "RESPIR",
+                   "HYPOGLY"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "015",
+        "vx":  [
+                   "INGESTION",
+                   "OCULAIRE",
+                   "CUTANE"
+               ],
+        "ch":  [
+                   "Immédiat|Mousse blanche à la bouche, douleur",
+                   "T+0-2 h|Distension gastrique, embolie gazeuse",
+                   "T+2-6 h|Ischémie si embolie"
+               ],
+        "se":  {
+                   "tox":  "Version 35 %",
+                   "let":  "\u003e 50 mL de 35 %",
+                   "conc":  "Embolie gazeuse"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "EAU"
+               ]
+    },
+    {
+        "n":  "Alcool isopropylique (alcool à 70/90°)",
+        "c":  "Ménager",
+        "a":  "Pharmacie, grande surface",
+        "d":  "1–2 mL/kg ; environ 2x plus puissant que l\u0027éthanol",
+        "t":  "30–60 min",
+        "e":  "Coma rapide, hémorragie gastrique, acidose",
+        "s":  "Odeur différente de l\u0027alcool, vomissements sanglants",
+        "an":  "Support, dialyse si choc",
+        "m":  "—",
+        "no":  "Se boit facilement : moins de 250 mL pour un adulte fragile",
+        "tg":  [
+                   "VOMI",
+                   "COMA",
+                   "HEMO",
+                   "ACIDOSE"
+               ],
+        "di":  2,
+        "st":  false,
+        "id":  "016",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION",
+                   "OCULAIRE"
+               ],
+        "ch":  [
+                   "Immédiat|Brûlure buccale, larmoiement",
+                   "T+1-6 h|Nécrose muqueuse, œdème laryngé",
+                   "T+6-24 h|Acidose, insuffisance rénale"
+               ],
+        "se":  {
+                   "tox":  "\u003e 30 mL",
+                   "let":  "\u003e 100 mL de formol 35 %",
+                   "conc":  "Méthanolémie"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "EAU"
+               ]
+    },
+    {
+        "n":  "Eau oxygénée 35 % (peroxyde d\u0027hydrogène concentré)",
+        "c":  "Industriel",
+        "a":  "Coiffeur, droguerie, piscine",
+        "d":  "10–20 mL",
+        "t":  "Immédiat",
+        "e":  "Embolie gazeuse (accident rare mais fatal), causticité gastrique",
+        "s":  "Douleur brutale, mousse à la bouche, chute de tension",
+        "an":  "Position allongée, oxygène, transfert",
+        "m":  "+ catalase (sang, pomme de terre crue) = dégagement brutal d\u0027oxygène",
+        "no":  "La version 3 % vendue en pharmacie est presque inoffensive : c\u0027est bien la 35 % qui tue",
+        "tg":  [
+                   "MORT",
+                   "CAUSTIQUE"
+               ],
+        "di":  1,
+        "st":  false,
+        "id":  "017",
+        "vx":  [
+                   "INGESTION",
+                   "CUTANE",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-15 min|Nausées, salivation, pâleur",
+                   "T+15 min-1 h|Tachycardie, hypertension, fasciculations",
+                   "T+1-4 h|Bradycardie, paralysie, convulsions"
+               ],
+        "se":  {
+                   "tox":  "\u003e 1 mg",
+                   "let":  "40-60 mg (â‰ˆ 10 mL de 20 mg/mL)",
+                   "conc":  "Nicotinémie"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Formol (formaldéhyde 35–40 %)",
+        "c":  "Industriel",
+        "a":  "Droguerie, pharmacie",
+        "d":  "30–60 mL",
+        "t":  "Immédiat à 24 h",
+        "e":  "Nécrose muqueuse, acidose, atteinte hépatique",
+        "s":  "Brûlure, vomissements, dyspnée",
+        "an":  "Eau, bicarbonates, support",
+        "m":  "—",
+        "no":  "Odeur très pénétrante : difficile à masquer",
+        "tg":  [
+                   "VOMI",
+                   "FOIE",
+                   "RESPIR",
+                   "ACIDOSE",
+                   "CAUSTIQUE"
+               ],
+        "di":  1,
+        "st":  false,
+        "id":  "018",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-1 h|Agitation, palpitations, insomnie",
+                   "T+1-4 h|Tremblements, troubles du rythme",
+                   "T+4-12 h|Convulsions, rhabdomyolyse"
+               ],
+        "se":  {
+                   "tox":  "\u003e 5 mg/kg",
+                   "let":  "\u003e 10 g (poudre pure)",
+                   "conc":  "Caféinémie \u003e 80 mg/L"
+               },
+        "cf":  [
+                   "019"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Nicotine (e-liquide, patchs)",
+        "c":  "Médicament",
+        "a":  "Bureau de tabac, vapoteur",
+        "d":  "0,5–1 mg/kg ; 60 mg adulte = sévère",
+        "t":  "15–60 min",
+        "e":  "Convulsions, paralysie, apnée, arrêt cardiaque",
+        "s":  "Vomissements immédiats, hypersalivation, fasciculations, pâleur",
+        "an":  "Support, atropine, anticonvulsivants",
+        "m":  "—",
+        "no":  "Un flacon de 10 mL dosé à 20 mg/mL contient 200 mg : mortel en une gorgée",
+        "tg":  [
+                   "VOMI",
+                   "CARDIAQUE",
+                   "CONVULS",
+                   "RESPIR"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "019",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-2 h|Nausées, tremblements, tachycardie",
+                   "T+2-12 h|Convulsions, arythmies, hypokaliémie",
+                   "T+12-24 h|Choc, rhabdomyolyse"
+               ],
+        "se":  {
+                   "tox":  "10-20 mg/L",
+                   "let":  "\u003e 40 mg/L",
+                   "conc":  "Théophyllinémie"
+               },
+        "cf":  [
+                   "018"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Caféine pure (gélules, poudre)",
+        "c":  "Médicament",
+        "a":  "Pharmacie, compléments sportifs",
+        "d":  "\u003e 1 g symptomatique ; 5–10 g mortel",
+        "t":  "30–60 min",
+        "e":  "Tachyarythmies, convulsions, rhabdomyolyse, arrêt cardiaque",
+        "s":  "Palpitations, tremblements, agitation, vomissements",
+        "an":  "Bêtabloquant, benzodiazépines, charbon",
+        "m":  "—",
+        "no":  "La poudre pure se dose mal : une cuillère à soupe rase ≈ 5 g",
+        "tg":  [
+                   "VOMI",
+                   "CARDIAQUE",
+                   "CONVULS"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "020",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-24 h|Aucun signe : latence totale",
+                   "T+24-72 h|Ecchymoses, gingivorragies",
+                   "T+72 h-7 j|Hémorragies graves, hématomes"
+               ],
+        "se":  {
+                   "tox":  "Surdosage \u003e 5 mg",
+                   "let":  "Variable selon l\u0027INR",
+                   "conc":  "INR \u003e 5"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "VITAMINE K",
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Théophylline",
+        "c":  "Médicament",
+        "a":  "Ordonnance",
+        "d":  "\u003e 20 mg/kg",
+        "t":  "1–4 h",
+        "e":  "Arythmies, convulsions réfractaires, hypokaliémie",
+        "s":  "Vomissements, tachycardie, agitation",
+        "an":  "Charbon itératif, bêtabloquant, hémodialyse",
+        "m":  "—",
+        "no":  "Marge thérapeutique très étroite : 10–20 mg/L",
+        "tg":  [
+                   "VOMI",
+                   "CARDIAQUE",
+                   "CONVULS"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "021",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-30 min|Aucun signe, sommeil profond",
+                   "T+30 min-4 h|Hypothermie, bradycardie, myosis",
+                   "T+4-12 h|Coma, dépression respiratoire"
+               ],
+        "se":  {
+                   "tox":  "\u003e 1 g",
+                   "let":  "2-3 g",
+                   "conc":  "Chloralose plasmatique"
+               },
+        "cf":  [
+                   "013"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Warfarine / coumafène (mort-aux-rats)",
+        "c":  "Rodenticide",
+        "a":  "Grande surface, droguerie",
+        "d":  "0,5–1 mg/kg",
+        "t":  "24 h–5 jours",
+        "e":  "Hémorragies diffuses, hématomes, hémorragie cérébrale, mort",
+        "s":  "Ecchymoses, gingivorragies, urines rouges, méléna",
+        "an":  "Vitamine K1 (dose élevée et prolongée), PPSB",
+        "m":  "—",
+        "no":  "Le tableau ressemble à une maladie hémorragique spontanée : très trompeur",
+        "tg":  [
+                   "MORT",
+                   "HEMO"
+               ],
+        "di":  4,
+        "st":  false,
+        "id":  "022",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-2 h|Nausées, bouche sèche",
+                   "T+2-12 h|Myoclonies, hyperréflexie, agitation",
+                   "T+12-24 h|Convulsions, acidose"
+               ],
+        "se":  {
+                   "tox":  "\u003e 100 mg/kg",
+                   "let":  "\u003e 8 g",
+                   "conc":  "Acidose métabolique"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "BICARBONATE DE SODIUM"
+               ]
+    },
+    {
+        "n":  "Chloralose (mort-aux-rats, appâts)",
+        "c":  "Rodenticide",
+        "a":  "Droguerie, agricole",
+        "d":  "2–3 g",
+        "t":  "30 min–2 h",
+        "e":  "Hypothermie, dépression respiratoire, coma",
+        "s":  "Somnolence brutale, myosis, bradycardie",
+        "an":  "Support, réchauffement",
+        "m":  "—",
+        "no":  "Employé aussi comme anesthésiant vétérinaire",
+        "tg":  [
+                   "CARDIAQUE",
+                   "NEURO",
+                   "COMA",
+                   "RESPIR"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "023",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-1 h|Nausées, soif, douleur épigastrique",
+                   "T+1-24 h|Vomissements répétés, phosphine respiratoire",
+                   "T+24-72 h|Insuffisance hépatique et rénale"
+               ],
+        "se":  {
+                   "tox":  "\u003e 0,5 g",
+                   "let":  "1 comprimé (3 g)",
+                   "conc":  "Phosphine dans l\u0027air expiré"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Métaldéhyde (anti-limaces)",
+        "c":  "Rodenticide",
+        "a":  "Jardinerie",
+        "d":  "10 g",
+        "t":  "1–3 h",
+        "e":  "Convulsions, hyperthermie, acidose, hépatite",
+        "s":  "Tremblements, rigidité, sueurs",
+        "an":  "Benzodiazépines, support",
+        "m":  "—",
+        "no":  "Les granulés bleus sont souvent confondus avec des bonbons par les enfants",
+        "tg":  [
+                   "CONVULS",
+                   "FOIE",
+                   "ACIDOSE"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "024",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION",
+                   "CUTANE"
+               ],
+        "ch":  [
+                   "T+0-30 min|Myosis, hypersécrétion, bradycardie (DUMBELS)",
+                   "T+30 min-6 h|Bronchorrhée, fasciculations, sueurs",
+                   "T+6-24 h|Paralysie, dépression respiratoire"
+               ],
+        "se":  {
+                   "tox":  "Inhibition des cholinestérases",
+                   "let":  "Variable",
+                   "conc":  "Cholinestérases \u003c 50 %"
+               },
+        "cf":  [
+                   "025"
+               ],
+        "ad":  [
+                   "ATROPINE",
+                   "PRALIDOXIME",
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Phosphure de zinc (rodenticide)",
+        "c":  "Rodenticide",
+        "a":  "Droguerie",
+        "d":  "1–2 g",
+        "t":  "1–12 h",
+        "e":  "Libération de phosphine : hémolyse, choc, hépatite fulminante",
+        "s":  "Haleine à l\u0027ail (phosphine), vomissements noirs, douleur épigastrique",
+        "an":  "Support, lavage gastrique précoce, pas de charbon",
+        "m":  "+ acide gastrique ou eau = phosphine gazeuse",
+        "no":  "Interdit de faire boire après ingestion : l\u0027eau accélère la libération de gaz",
+        "tg":  [
+                   "VOMI",
+                   "HEMO",
+                   "FOIE"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "025",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION",
+                   "CUTANE"
+               ],
+        "ch":  [
+                   "T+0-2 h|Paresthésies faciales, salivation",
+                   "T+2-12 h|Tremblements, hypersécrétion",
+                   "T+12-24 h|Rarement grave seul"
+               ],
+        "se":  {
+                   "tox":  "Faible",
+                   "let":  "Peu de cas mortels",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+                   "024"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Organophosphorés (malathion, chlorpyrifos)",
+        "c":  "Insecticide",
+        "a":  "Jardinerie, agricole",
+        "d":  "Quelques mL de concentré",
+        "t":  "30 min–12 h",
+        "e":  "Syndrome cholinergique, paralysie respiratoire, mort",
+        "s":  "Salivation, larmoiement, myosis punctiforme, bronchorrhée, diarrhée, fasciculations",
+        "an":  "Atropine forte dose + pralidoxime",
+        "m":  "—",
+        "no":  "Le tableau « DUMBELS » est reconnaissable entre tous : c\u0027est le tableau du gaz de combat",
+        "tg":  [
+                   "MORT",
+                   "CONVULS",
+                   "RESPIR",
+                   "DIGESTIF"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "026",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-6 h|Latence, nausées, douleur abdominale",
+                   "T+6-24 h|Vomissements profus, diarrhée, déshydratation",
+                   "T+24-72 h|Insuffisance hépatique, cytolyse"
+               ],
+        "se":  {
+                   "tox":  "5-10 graines mâchées",
+                   "let":  "â‰ˆ 10 mg de ricine",
+                   "conc":  "Transaminases \u003e 1000"
+               },
+        "cf":  [
+                   "027"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Pyréthrinoïdes (insecticides ménagers)",
+        "c":  "Insecticide",
+        "a":  "Grande surface",
+        "d":  "10–50 mL",
+        "t":  "30 min",
+        "e":  "Paresthésies, hypersalivation, convulsions (peu mortel seul)",
+        "s":  "Picotements, vomissements",
+        "an":  "Support, décontamination cutanée",
+        "m":  "—",
+        "no":  "Faible toxicité : surtout gênant en association",
+        "tg":  [
+                   "MORT",
+                   "VOMI",
+                   "CONVULS"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "027",
+        "vx":  [
+                   "INGESTION",
+                   "OCULAIRE"
+               ],
+        "ch":  [
+                   "T+0-6 h|Latence, irritation oculaire si poudre",
+                   "T+6-24 h|Vomissements, diarrhée sanglante",
+                   "T+24-72 h|Hémolyse, insuffisance rénale"
+               ],
+        "se":  {
+                   "tox":  "1 graine mâchée",
+                   "let":  "2-3 graines",
+                   "conc":  "Hémolyse"
+               },
+        "cf":  [
+                   "026"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Ricin (graines de ricin)",
+        "c":  "Plante",
+        "a":  "Graines de ricin, jardinerie",
+        "d":  "5–10 graines mâchées (1 graine non mâchée = peu d\u0027effet)",
+        "t":  "2–24 h",
+        "e":  "Gastro-entérite hémorragique, déshydratation, défaillance multiviscérale",
+        "s":  "Vomissements profus, diarrhée sanglante, crampes",
+        "an":  "Support, réhydratation",
+        "m":  "—",
+        "no":  "L\u0027enveloppe doit être broyée pour libérer la ricine : avaler entier ne suffit pas",
+        "tg":  [
+                   "VOMI",
+                   "HEMO",
+                   "DIGESTIF"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "028",
+        "vx":  [
+                   "INGESTION",
+                   "CUTANE"
+               ],
+        "ch":  [
+                   "T+0-2 h|Nausées, troubles visuels (halo, jaune)",
+                   "T+2-12 h|Bradycardie, bloc auriculo-ventriculaire",
+                   "T+12-24 h|Troubles du rythme, hyperkaliémie"
+               ],
+        "se":  {
+                   "tox":  "\u003e 0,5 g de feuilles",
+                   "let":  "2-3 feuilles",
+                   "conc":  "Digoxinémie \u003e 2 ng/mL"
+               },
+        "cf":  [
+                   "029"
+               ],
+        "ad":  [
+                   "ANTICORPS ANTIDIGOXINE",
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Abrine (graines d\u0027Abrus precatorius)",
+        "c":  "Plante",
+        "a":  "Graines décoratives, bijoux",
+        "d":  "1–2 graines mâchées",
+        "t":  "6–24 h",
+        "e":  "Même tableau que la ricine, un peu moins sévère",
+        "s":  "Vomissements, diarrhée, douleurs abdominales",
+        "an":  "Support",
+        "m":  "—",
+        "no":  "Les graines rouges et noires servent de perles : jolies et toxiques",
+        "tg":  [
+                   "VOMI",
+                   "DIGESTIF"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "029",
+        "vx":  [
+                   "INGESTION",
+                   "CUTANE"
+               ],
+        "ch":  [
+                   "T+0-2 h|Nausées, douleur abdominale",
+                   "T+2-12 h|Bradycardie, troubles digestifs",
+                   "T+12-24 h|Troubles du rythme, hyperkaliémie"
+               ],
+        "se":  {
+                   "tox":  "1 feuille",
+                   "let":  "10-15 feuilles",
+                   "conc":  "Digoxinémie \u003e 2 ng/mL"
+               },
+        "cf":  [
+                   "028"
+               ],
+        "ad":  [
+                   "ANTICORPS ANTIDIGOXINE"
+               ]
+    },
+    {
+        "n":  "Digitale (Digitalis purpurea)",
+        "c":  "Plante",
+        "a":  "Jardin, cueillette",
+        "d":  "20–30 g de feuilles fraîches",
+        "t":  "1–6 h",
+        "e":  "Intoxication digitalique, bloc cardiaque, arythmies fatales",
+        "s":  "Xanthopsie (vision jaune), bradycardie, nausées, hyperkaliémie",
+        "an":  "Anticorps antidigoxine, charbon",
+        "m":  "—",
+        "no":  "Feuilles confondues avec la consoude ou la bourrache par les cueilleurs",
+        "tg":  [
+                   "MORT",
+                   "CARDIAQUE",
+                   "CECITE"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "030",
+        "vx":  [
+                   "INGESTION",
+                   "CUTANE",
+                   "OCULAIRE"
+               ],
+        "ch":  [
+                   "T+0-1 h|Sécheresse buccale, soif, mydriase",
+                   "T+1-6 h|Confusion, agitation, rougeur, tachycardie",
+                   "T+6-24 h|Hallucinations, convulsions, coma"
+               ],
+        "se":  {
+                   "tox":  "\u003e 0,5 mg d\u0027atropine",
+                   "let":  "10-15 baies",
+                   "conc":  "Anticholinergique"
+               },
+        "cf":  [
+                   "031"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Laurier-rose (Nerium oleander)",
+        "c":  "Plante",
+        "a":  "Haies méditerranéennes",
+        "d":  "1–2 feuilles",
+        "t":  "1–4 h",
+        "e":  "Même tableau digitalique, troubles de conduction",
+        "s":  "Vomissements, bradycardie, confusion",
+        "an":  "Anticorps antidigoxine, support",
+        "m":  "—",
+        "no":  "Toute la plante est toxique, y compris le miel qui en provient",
+        "tg":  [
+                   "VOMI",
+                   "CARDIAQUE",
+                   "NEURO"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "031",
+        "vx":  [
+                   "INGESTION",
+                   "CUTANE",
+                   "OCULAIRE"
+               ],
+        "ch":  [
+                   "T+0-2 h|Nausées, vomissements, douleur abdominale",
+                   "T+2-12 h|Bradycardie, troubles visuels",
+                   "T+12-24 h|Troubles du rythme, hyperkaliémie"
+               ],
+        "se":  {
+                   "tox":  "1 feuille",
+                   "let":  "10-15 feuilles",
+                   "conc":  "Digoxinémie \u003e 2 ng/mL"
+               },
+        "cf":  [
+                   "030"
+               ],
+        "ad":  [
+                   "ANTICORPS ANTIDIGOXINE",
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Belladone / Datura (Atropa, Datura stramonium)",
+        "c":  "Plante",
+        "a":  "Cueillette, jardins",
+        "d":  "10–20 baies de belladone ; 1 g de graines de datura",
+        "t":  "30 min–2 h",
+        "e":  "Syndrome anticholinergique, agitation, hallucinations, hyperthermie, coma",
+        "s":  "Mydriase, sécheresse totale, rougeur, délire, rétention urinaire",
+        "an":  "Physostigmine, charbon, refroidissement",
+        "m":  "—",
+        "no":  "« Aveugle comme une chauve-souris, rouge comme une betterave, sec comme un coup de trique, fou comme un chapelier »",
+        "tg":  [
+                   "COMA",
+                   "HALLU"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "032",
+        "vx":  [
+                   "INGESTION",
+                   "CUTANE",
+                   "OCULAIRE"
+               ],
+        "ch":  [
+                   "T+0-1 h|Sécheresse buccale, mydriase, rougeur",
+                   "T+1-6 h|Agitation, hallucinations, tachycardie",
+                   "T+6-24 h|Convulsions, coma, dépression respiratoire"
+               ],
+        "se":  {
+                   "tox":  "\u003e 0,5 mg d\u0027atropine",
+                   "let":  "10-15 baies",
+                   "conc":  "Anticholinergique"
+               },
+        "cf":  [
+                   "030"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "PHYSOSTIGMINE"
+               ]
+    },
+    {
+        "n":  "Grande ciguë (Conium maculatum)",
+        "c":  "Plante",
+        "a":  "Bords de chemin",
+        "d":  "5–10 g",
+        "t":  "30 min–2 h",
+        "e":  "Paralysie ascendante, paralysie respiratoire, mort consciente",
+        "s":  "Paresthésies des extrémités, faiblesse montante, dysphagie",
+        "an":  "Support ventilatoire",
+        "m":  "—",
+        "no":  "La mort de Socrate ; confondue avec le persil ou le cerfeuil",
+        "tg":  [
+                   "MORT",
+                   "RESPIR",
+                   "DIGESTIF"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "033",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-30 min|Goût de persil, nausées, salivation",
+                   "T+30 min-6 h|Faiblesse musculaire descendante, diplopie",
+                   "T+6-24 h|Paralysie, apnée, coma"
+               ],
+        "se":  {
+                   "tox":  "\u003e 2 feuilles",
+                   "let":  "5-10 feuilles",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Aconit (Aconitum napellus)",
+        "c":  "Plante",
+        "a":  "Jardins, montagne",
+        "d":  "1–2 g de racine ; 2–5 mg d\u0027aconitine",
+        "t":  "15 min–1 h",
+        "e":  "Bloc cardiaque, arythmies réfractaires, mort subite",
+        "s":  "Brûlure et engourdissement de la bouche, paresthésies, palpitations",
+        "an":  "Support, magnésium, amiodarone, pas de vrai antidote",
+        "m":  "—",
+        "no":  "Une des plantes les plus toxiques d\u0027Europe, même le contact répété peut intoxiquer",
+        "tg":  [
+                   "MORT",
+                   "CARDIAQUE"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "034",
+        "vx":  [
+                   "INGESTION",
+                   "CUTANE"
+               ],
+        "ch":  [
+                   "T+0-1 h|Paresthésies péribuccales, engourdissement",
+                   "T+1-6 h|Troubles visuels, faiblesse, vomissements",
+                   "T+6-24 h|Troubles du rythme, paralysie, mort"
+               ],
+        "se":  {
+                   "tox":  "1 g de racine",
+                   "let":  "2-3 g",
+                   "conc":  "Aconitine"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "ATROPINE"
+               ]
+    },
+    {
+        "n":  "If (Taxus baccata)",
+        "c":  "Plante",
+        "a":  "Cimetières, jardins",
+        "d":  "50–100 g d\u0027aiguilles",
+        "t":  "1–3 h",
+        "e":  "Arrêt cardiaque brutal, sans prodrome prolongé",
+        "s":  "Vomissements, pâleur, malaise puis asystolie",
+        "an":  "Support, atropine",
+        "m":  "—",
+        "no":  "L\u0027arille rouge est la seule partie non toxique",
+        "tg":  [
+                   "VOMI",
+                   "CARDIAQUE"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "035",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-2 h|Nausées, douleur abdominale",
+                   "T+2-12 h|Palpitations, troubles du rythme",
+                   "T+12-24 h|Collapsus, mort subite"
+               ],
+        "se":  {
+                   "tox":  "2-3 arilles (arille non toxique)",
+                   "let":  "10-20 arilles",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Amanite phalloïde (calice de la mort)",
+        "c":  "Champignon",
+        "a":  "Forêts de feuillus",
+        "d":  "Un seul chapeau",
+        "t":  "6–24 h puis phase muette",
+        "e":  "Amatoxines : nécrose hépatique et rénale, mort en 6–10 jours",
+        "s":  "Phase 1 : gastro-entérite profuse. Phase 2 : rémission. Phase 3 : ictère, hémorragies",
+        "an":  "Silibinine + pénicilline G, N-acétylcystéine, greffe hépatique",
+        "m":  "—",
+        "no":  "La cause n°1 de décès par champignon en Europe, et la plus facile à confondre",
+        "tg":  [
+                   "MORT",
+                   "HEMO",
+                   "FOIE",
+                   "REIN",
+                   "DIGESTIF"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "036",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+6-12 h|Latence totale, puis nausées, crampes",
+                   "T+12-24 h|Vomissements profus, diarrhée cholériforme",
+                   "T+24-72 h|Cytolyse massive, insuffisance hépatique"
+               ],
+        "se":  {
+                   "tox":  "1 chapeau",
+                   "let":  "1 chapeau (â‰ˆ 50 g)",
+                   "conc":  "Transaminases \u003e 1000"
+               },
+        "cf":  [
+                   "037"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Amanite muscaria (tue-mouches)",
+        "c":  "Champignon",
+        "a":  "Boulaies, pins",
+        "d":  "1–2 chapeaux",
+        "t":  "30 min–2 h",
+        "e":  "Syndrome muscarinien puis délirant (muscimol), somnolence",
+        "s":  "Confusion, ataxie, hallucinations, hypersalivation",
+        "an":  "Support",
+        "m":  "—",
+        "no":  "Rarement mortelle chez l\u0027adulte, mais tableau spectaculaire",
+        "tg":  [
+                   "NEURO",
+                   "HALLU"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "037",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+30 min-3 h|Nausées, vomissements, confusion",
+                   "T+3-12 h|Hallucinations, agitation, mydriase",
+                   "T+12-24 h|Convulsions, coma"
+               ],
+        "se":  {
+                   "tox":  "1 chapeau cru",
+                   "let":  "Variable",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+                   "036"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Cortinaire (Cortinarius orellanus)",
+        "c":  "Champignon",
+        "a":  "Forêts",
+        "d":  "Un repas",
+        "t":  "2 à 14 jours de latence",
+        "e":  "Orellanine : néphrite interstitielle, insuffisance rénale définitive",
+        "s":  "Soif, oligurie, douleurs lombaires — longtemps après le repas",
+        "an":  "Dialyse, support",
+        "m":  "—",
+        "no":  "La latence de deux semaines rend le lien avec le repas presque indétectable",
+        "tg":  "REIN",
+        "di":  4,
+        "st":  false,
+        "id":  "038",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-24 h|Aucun signe : latence de 2 semaines",
+                   "T+2-3 sem|Asthénie, nausées, soif intense",
+                   "T+3-6 sem|Insuffisance rénale anurique définitive"
+               ],
+        "se":  {
+                   "tox":  "1 chapeau",
+                   "let":  "Variable",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Gyromitre (Gyromitra esculenta)",
+        "c":  "Champignon",
+        "a":  "Forêts de conifères",
+        "d":  "Un repas mal cuit",
+        "t":  "6–12 h",
+        "e":  "Gyromitrine → hydrazine : hémolyse, hépatite, convulsions",
+        "s":  "Vomissements, ictère, troubles neurologiques",
+        "an":  "Pyridoxine, support",
+        "m":  "—",
+        "no":  "Toxique crue, mais aussi par la vapeur de cuisson",
+        "tg":  [
+                   "VOMI",
+                   "NEURO",
+                   "CONVULS",
+                   "HEMO",
+                   "FOIE"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "039",
+        "vx":  [
+                   "INGESTION",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+6-12 h|Latence, nausées, vertiges, céphalées",
+                   "T+12-24 h|Vomissements, hépatite, hémolyse",
+                   "T+24-72 h|Convulsions, insuffisance hépatique"
+               ],
+        "se":  {
+                   "tox":  "1 chapeau cru",
+                   "let":  "Variable",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Tétrodotoxine (poisson-lune, fugu)",
+        "c":  "Marin",
+        "a":  "Poissonnerie spécialisée",
+        "d":  "1–2 mg",
+        "t":  "15 min–3 h",
+        "e":  "Blocage des canaux sodium : paralysie musculaire, apnée, mort conscient",
+        "s":  "Paresthésies péribuccales, paralysie descendante, aréflexie",
+        "an":  "Aucun antidote ; ventilation assistée prolongée",
+        "m":  "—",
+        "no":  "Mille fois plus puissant que le cyanure, thermostable",
+        "tg":  [
+                   "MORT",
+                   "RESPIR"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "040",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+10 min-2 h|Paresthésies labiales, engourdissement",
+                   "T+2-6 h|Paralysie ascendante, ataxie",
+                   "T+6-24 h|Paralysie respiratoire, coma"
+               ],
+        "se":  {
+                   "tox":  "1 mg",
+                   "let":  "2 mg",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+                   "041"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Saxitoxine (coquillages)",
+        "c":  "Marin",
+        "a":  "Moules, palourdes",
+        "d":  "Variable selon la floraison",
+        "t":  "30 min",
+        "e":  "Paralysie respiratoire",
+        "s":  "Engourdissement labial, vertiges, paralysie",
+        "an":  "Support ventilatoire",
+        "m":  "—",
+        "no":  "Liée aux efflorescences d\u0027algues rouges, imprévisible",
+        "tg":  "RESPIR",
+        "di":  3,
+        "st":  false,
+        "id":  "041",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+30 min-2 h|Paresthésies péribuccales, fourmillements",
+                   "T+2-6 h|Paralysie ascendante, incoordination",
+                   "T+6-24 h|Paralysie respiratoire, mort"
+               ],
+        "se":  {
+                   "tox":  "Faible dose",
+                   "let":  "Variable selon la contamination",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+                   "040"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Toxine botulique (botulisme alimentaire)",
+        "c":  "Bactérien",
+        "a":  "Conserves artisanales",
+        "d":  "Quelques nanogrammes",
+        "t":  "12–36 h",
+        "e":  "Paralysie flasque descendante, apnée",
+        "s":  "Diplopie, dysphagie, sécheresse buccale, ptosis",
+        "an":  "Antitoxine botulique, ventilation",
+        "m":  "—",
+        "no":  "La toxine la plus puissante connue ; les conserves mal stérilisées sont le vecteur classique",
+        "tg":  [
+                   "RESPIR",
+                   "DIGESTIF"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "042",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+12-36 h|Latence, nausées, sécheresse buccale",
+                   "T+36-72 h|Diplopie, ptosis, dysphagie, parole nasonnée",
+                   "T+72 h-7 j|Paralysie descendante, apnée"
+               ],
+        "se":  {
+                   "tox":  "Ingestion de toxine préformée",
+                   "let":  "Très faible dose",
+                   "conc":  "Toxine dans le sérum ou les aliments"
+               },
+        "cf":  [
+                   "033"
+               ],
+        "ad":  [
+                   "ANTITOXINE BOTULIQUE",
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Histamine (poisson scombroïde)",
+        "c":  "Aliment",
+        "a":  "Thon, maquereau mal conservés",
+        "d":  "Repas entier",
+        "t":  "15–60 min",
+        "e":  "Vasodilatation brutale, hypotension",
+        "s":  "Rougeur du visage, urticaire, céphalées, diarrhée, PAS de fièvre",
+        "an":  "Antihistaminiques, support",
+        "m":  "—",
+        "no":  "Confondu avec une allergie ; la rupture de chaîne du froid est la cause",
+        "tg":  "DIGESTIF",
+        "di":  3,
+        "st":  false,
+        "id":  "043",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+10-30 min|Rougeur du visage et du cou, bouffées de chaleur",
+                   "T+30 min-2 h|Céphalées battantes, palpitations, urticaire",
+                   "T+2-6 h|Régression spontanée en quelques heures"
+               ],
+        "se":  {
+                   "tox":  "\u003e 100 mg d\u0027histamine",
+                   "let":  "Rarement mortelle",
+                   "conc":  "Histamine dans le poisson"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Benzodiazépines (Lexomil, Xanax)",
+        "c":  "Médicament",
+        "a":  "Ordonnance",
+        "d":  "\u003e 0,5 mg/kg selon molécule, mortel surtout avec alcool",
+        "t":  "30–60 min",
+        "e":  "Dépression respiratoire, coma, inhalation",
+        "s":  "Somnolence, ataxie, myosis, bradypnée",
+        "an":  "Flumazénil (attention aux co-intoxications), support",
+        "m":  "+ éthanol = synergie majeure",
+        "no":  "Le duo benzodiazépine + alcool est la cause n°1 de coma médicamenteux domestique",
+        "tg":  [
+                   "NEURO",
+                   "COMA",
+                   "RESPIR"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "044",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+15 min-1 h|Somnolence, ataxie, dysarthrie",
+                   "T+1-4 h|Coma calme, dépression respiratoire",
+                   "T+4-12 h|Risque de fausse route, hypothermie"
+               ],
+        "se":  {
+                   "tox":  "Variable selon la molécule",
+                   "let":  "Variable, majoré par l\u0027alcool",
+                   "conc":  "Benzodiazépinémie"
+               },
+        "cf":  [
+                   "013",
+                   "045"
+               ],
+        "ad":  [
+                   "FLUMAZENIL"
+               ]
+    },
+    {
+        "n":  "Opioïdes (codéine, tramadol)",
+        "c":  "Médicament",
+        "a":  "Ordonnance",
+        "d":  "Variable ; la codéine est un prodrogue du CYP2D6",
+        "t":  "30–60 min",
+        "e":  "Dépression respiratoire, apnée, mort",
+        "s":  "Myosis serré, bradypnée, somnolence, cyanose",
+        "an":  "Naloxone",
+        "m":  "+ alcool ou benzodiazépine = risque majeur",
+        "no":  "Certains métaboliseurs rapides transforment la codéine en morphine très vite",
+        "tg":  [
+                   "MORT",
+                   "NEURO",
+                   "RESPIR"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "045",
+        "vx":  [
+                   "INGESTION",
+                   "INJECTION",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-30 min|Somnolence, myosis serré",
+                   "T+30 min-2 h|Bradycardie, dépression respiratoire, coma",
+                   "T+2-6 h|Apnée, cyanose, myosis punctiforme"
+               ],
+        "se":  {
+                   "tox":  "Variable selon la tolérance",
+                   "let":  "Variable, mortel chez le naïf",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+                   "044",
+                   "013"
+               ],
+        "ad":  [
+                   "NALOXONE",
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Antidépresseurs tricycliques (amitriptyline)",
+        "c":  "Médicament",
+        "a":  "Ordonnance",
+        "d":  "\u003e 5 mg/kg",
+        "t":  "1–4 h",
+        "e":  "Cardiotoxicité : élargissement du QRS, arythmies, arrêt cardiaque",
+        "s":  "Sécheresse, mydriase, coma, convulsions",
+        "an":  "Bicarbonate de sodium molaire, support",
+        "m":  "—",
+        "no":  "Un des rares surdosages où le bicarbonate est un vrai antidote",
+        "tg":  [
+                   "CARDIAQUE",
+                   "COMA",
+                   "CONVULS"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "046",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+1-2 h|Sécheresse buccale, mydriase, agitation",
+                   "T+2-6 h|Tachycardie, élargissement du QRS, hypotension",
+                   "T+6-24 h|Troubles du rythme, convulsions, coma"
+               ],
+        "se":  {
+                   "tox":  "\u003e 5 mg/kg",
+                   "let":  "\u003e 15 mg/kg",
+                   "conc":  "Élargissement du QRS \u003e 100 ms"
+               },
+        "cf":  [
+                   "044",
+                   "032"
+               ],
+        "ad":  [
+                   "BICARBONATE DE SODIUM",
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "IMAO + tyramine (fromage, vin)",
+        "c":  "Médicament",
+        "a":  "Ordonnance + alimentation",
+        "d":  "Une portion de fromage affiné suffit",
+        "t":  "30 min–2 h",
+        "e":  "Crise hypertensive, hémorragie cérébrale",
+        "s":  "Céphalée pulsatile brutale, sueurs, palpitations",
+        "an":  "Nicardipine, phentolamine",
+        "m":  "C\u0027est le mélange lui-même qui est le poison",
+        "no":  "Le « cheese effect » : interaction alimentaire classique",
+        "tg":  "HEMO",
+        "di":  3,
+        "st":  false,
+        "id":  "047",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-2 h|Céphalées, nausées, palpitations",
+                   "T+2-6 h|Hypertension, hyperthermie, agitation",
+                   "T+6-24 h|Crise hypertensive, convulsions, coma"
+               ],
+        "se":  {
+                   "tox":  "Interaction alimentaire",
+                   "let":  "Variable",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+                   "046"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Metformine",
+        "c":  "Médicament",
+        "a":  "Ordonnance",
+        "d":  "\u003e 5 g, ou moins si insuffisance rénale",
+        "t":  "6–24 h",
+        "e":  "Acidose lactique, choc, mort",
+        "s":  "Vomissements, polypnée, douleurs abdominales",
+        "an":  "Bicarbonate, épuration extrarénale",
+        "m":  "—",
+        "no":  "Tableau grave et sous-estimé car peu symptomatique au début",
+        "tg":  [
+                   "MORT",
+                   "VOMI",
+                   "ACIDOSE"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "048",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-6 h|Nausées, douleur abdominale, diarrhée",
+                   "T+6-24 h|Acidose lactique, polypnée, douleurs musculaires",
+                   "T+24-72 h|Insuffisance rénale, choc, coma"
+               ],
+        "se":  {
+                   "tox":  "\u003e 2 g/jour chez l\u0027insuffisant rénal",
+                   "let":  "\u003e 20 g en une prise",
+                   "conc":  "Lactates \u003e 5 mmol/L, pH \u003c 7,35"
+               },
+        "cf":  [
+                   "003"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "BICARBONATE DE SODIUM"
+               ]
+    },
+    {
+        "n":  "Insuline",
+        "c":  "Médicament",
+        "a":  "Pharmacie, ordonnance",
+        "d":  "Quelques unités de trop suffisent",
+        "t":  "30 min–4 h",
+        "e":  "Hypoglycémie profonde, coma, séquelles neurologiques, mort",
+        "s":  "Sueurs, tremblements, confusion, convulsions",
+        "an":  "Glucagon + glucose à 30 %, resucrage continu",
+        "m":  "—",
+        "no":  "Sans étiquette, le stylo pré-rempli est indétectable ; le coma hypoglycémique ressemble à une AVC",
+        "tg":  [
+                   "MORT",
+                   "NEURO",
+                   "COMA",
+                   "CONVULS",
+                   "HYPOGLY"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "049",
+        "vx":  [
+                   "INJECTION"
+               ],
+        "ch":  [
+                   "T+0-2 h|Sueurs, tremblements, faim impérieuse",
+                   "T+2-6 h|Confusion, troubles du comportement, mydriase",
+                   "T+6-12 h|Coma hypoglycémique, convulsions, séquelles"
+               ],
+        "se":  {
+                   "tox":  "Variable selon la sensibilité",
+                   "let":  "Variable",
+                   "conc":  "Glycémie \u003c 0,5 g/L"
+               },
+        "cf":  [
+                   "044"
+               ],
+        "ad":  [
+                   "GLUCAGON"
+               ]
+    },
+    {
+        "n":  "Bêtabloquants (propranolol)",
+        "c":  "Médicament",
+        "a":  "Ordonnance",
+        "d":  "\u003e 1 mg/kg",
+        "t":  "30 min–2 h",
+        "e":  "Bradycardie réfractaire, choc, bronchospasme",
+        "s":  "Bradycardie, hypotension, hypoglycémie masquée",
+        "an":  "Glucagon, atropine, amines",
+        "m":  "—",
+        "no":  "Le propranolol masque les signes d\u0027hypoglycémie et passe la barrière hémato-encéphalique",
+        "tg":  [
+                   "CARDIAQUE",
+                   "CONVULS",
+                   "RESPIR",
+                   "HYPOGLY"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "050",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-2 h|Bradycardie, hypotension, asthénie",
+                   "T+2-6 h|Hypoglycémie masquée, bronchospasme",
+                   "T+6-24 h|Collapsus, bloc cardiaque, convulsions"
+               ],
+        "se":  {
+                   "tox":  "Variable selon la molécule",
+                   "let":  "Quelques comprimés de propranolol",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+                   "051"
+               ],
+        "ad":  [
+                   "GLUCAGON",
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Digoxine",
+        "c":  "Médicament",
+        "a":  "Ordonnance",
+        "d":  "\u003e 2 ng/mL, toxique dès 1,5",
+        "t":  "1–4 h",
+        "e":  "Arythmies, bloc, hyperkaliémie",
+        "s":  "Nausées, xanthopsie, bradycardie",
+        "an":  "Anticorps antidigoxine",
+        "m":  "—",
+        "no":  "Marge thérapeutique minuscule, aggravée par l\u0027hypokaliémie",
+        "tg":  "CARDIAQUE",
+        "di":  3,
+        "st":  false,
+        "id":  "051",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-2 h|Nausées, troubles visuels colorés (halo)",
+                   "T+2-12 h|Bradycardie, bloc auriculo-ventriculaire",
+                   "T+12-24 h|Troubles du rythme, hyperkaliémie"
+               ],
+        "se":  {
+                   "tox":  "\u003e 2 ng/mL",
+                   "let":  "10-20 comprimés",
+                   "conc":  "Digoxinémie \u003e 2 ng/mL, kaliémie \u003e 5"
+               },
+        "cf":  [
+                   "028"
+               ],
+        "ad":  [
+                   "ANTICORPS ANTIDIGOXINE",
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Lithium",
+        "c":  "Médicament",
+        "a":  "Ordonnance",
+        "d":  "\u003e 1,5 mmol/L ; \u003e 3 = danger vital",
+        "t":  "1–24 h",
+        "e":  "Tremblements, confusion, convulsions, insuffisance rénale, séquelles définitives",
+        "s":  "Tremblement fin, soif, ataxie",
+        "an":  "Hémodialyse",
+        "m":  "+ diurétique ou AINS = réabsorption accrue",
+        "no":  "Le seul traitement est l\u0027épuration : pas d\u0027antidote chimique",
+        "tg":  [
+                   "NEURO",
+                   "CONVULS",
+                   "REIN"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "052",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-2 h|Nausées, tremblements, diarrhée",
+                   "T+2-12 h|Confusion, ataxie, fasciculations",
+                   "T+12-72 h|Insuffisance rénale, convulsions, coma"
+               ],
+        "se":  {
+                   "tox":  "Lithémie \u003e 1,5 mmol/L",
+                   "let":  "Lithémie \u003e 3 mmol/L",
+                   "conc":  "Lithémie"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "EAU"
+               ]
+    },
+    {
+        "n":  "Fer (sels ferreux)",
+        "c":  "Médicament",
+        "a":  "Pharmacie",
+        "d":  "20–40 mg/kg de fer élémentaire",
+        "t":  "Phase 1 : 30 min–6 h ; choc à 12–24 h",
+        "e":  "Nécrose digestive, choc, nécrose hépatique, sténoses séquellaires",
+        "s":  "Vomissements sanglants, diarrhée noire, hypotension",
+        "an":  "Déféroxamine",
+        "m":  "—",
+        "no":  "Classique de l\u0027intoxication infantile, mais mortel chez l\u0027adulte à forte dose",
+        "tg":  [
+                   "VOMI",
+                   "FOIE",
+                   "DIGESTIF"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "053",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+30 min-2 h|Nausées, vomissements, diarrhée sanglante",
+                   "T+2-12 h|Douleur abdominale, choc hypovolémique",
+                   "T+12-48 h|Nécrose hépatique, insuffisance hépatique"
+               ],
+        "se":  {
+                   "tox":  "\u003e 20 mg/kg de fer élément",
+                   "let":  "\u003e 60 mg/kg",
+                   "conc":  "Fer sérique \u003e 500 µg/dL"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "DEFEROXAMINE",
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Colchicine",
+        "c":  "Médicament",
+        "a":  "Ordonnance",
+        "d":  "\u003e 0,5 mg/kg",
+        "t":  "2–12 h",
+        "e":  "Défaillance multiviscérale, aplasie médullaire, mort en 24–72 h",
+        "s":  "Diarrhée profuse cholériforme, vomissements, fièvre",
+        "an":  "Anticorps spécifiques, support",
+        "m":  "—",
+        "no":  "Pas d\u0027antidote courant : un des surdosages les plus meurtriers",
+        "tg":  [
+                   "MORT",
+                   "VOMI",
+                   "DIGESTIF"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "054",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+2-6 h|Latence, nausées, vomissements, diarrhée profuse",
+                   "T+6-24 h|Déshydratation, douleurs musculaires",
+                   "T+24-72 h|Défaillance multiviscérale, aplasie médullaire"
+               ],
+        "se":  {
+                   "tox":  "\u003e 0,1 mg/kg",
+                   "let":  "\u003e 0,5 mg/kg",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE"
+               ]
+    },
+    {
+        "n":  "Chloroquine",
+        "c":  "Médicament",
+        "a":  "Ordonnance, voyage",
+        "d":  "2–3 g",
+        "t":  "1–3 h",
+        "e":  "Effet quinidinique, arrêt cardiaque, cécité",
+        "s":  "Somnolence, hypotension, troubles du rythme",
+        "an":  "Diazépam, adrénaline, ventilation",
+        "m":  "—",
+        "no":  "Un comprimé de 100 mg chez l\u0027enfant peut tuer ; la dose adulte est proche de la dose létale",
+        "tg":  [
+                   "CARDIAQUE",
+                   "NEURO",
+                   "CECITE"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "055",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+30 min-2 h|Nausées, troubles visuels, céphalées",
+                   "T+2-6 h|Somnolence, hypotension, troubles du rythme",
+                   "T+6-24 h|Collapsus, arrêt cardiaque, cécité"
+               ],
+        "se":  {
+                   "tox":  "\u003e 10 mg/kg base",
+                   "let":  "\u003e 20 mg/kg",
+                   "conc":  "Chloroquinémie"
+               },
+        "cf":  [
+                   "032"
+               ],
+        "ad":  [
+                   "CHARBON ACTIVE",
+                   "BICARBONATE DE SODIUM"
+               ]
+    },
+    {
+        "n":  "Monoxyde de carbone (CO)",
+        "c":  "Gaz",
+        "a":  "Chaudière, brasero, barbecue",
+        "d":  "1000 ppm = céphalées ; 3000 ppm = mort en 30 min",
+        "t":  "Minutes",
+        "e":  "Hypoxie tissulaire, œdème cérébral, syndrome post-intervallaire",
+        "s":  "Céphalées, rougeur cerise, confusion, coma",
+        "an":  "Oxygène 100 %, caisson hyperbare",
+        "m":  "—",
+        "no":  "Incolore et inodore : d\u0027où la nécessité d\u0027un détecteur",
+        "tg":  [
+                   "NEURO",
+                   "COMA"
+               ],
+        "di":  4,
+        "st":  false,
+        "id":  "056",
+        "vx":  [
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-2 h|Céphalées, nausées, vertiges, asthénie",
+                   "T+2-12 h|Confusion, lipothymie, tachycardie",
+                   "T+12-24 h|Coma, convulsions, séquelles neurologiques"
+               ],
+        "se":  {
+                   "tox":  "COHb \u003e 10 %",
+                   "let":  "COHb \u003e 30 %",
+                   "conc":  "COHb, lactates"
+               },
+        "cf":  [
+                   "057"
+               ],
+        "ad":  [
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Protoxyde d\u0027azote (cartouches N2O)",
+        "c":  "Gaz",
+        "a":  "Grande surface, cuisine",
+        "d":  "Concentration élevée en espace clos",
+        "t":  "Immédiat",
+        "e":  "Asphyxie par déplacement de l\u0027oxygène, inactivation de la vitamine B12",
+        "s":  "Euphorie, vertiges, puis cyanose et perte de conscience",
+        "an":  "Air frais, oxygène, vitamine B12",
+        "m":  "—",
+        "no":  "Le « proto » de cuisine : anesthésiant détourné, asphyxiant en pièce fermée",
+        "tg":  "RESPIR",
+        "di":  2,
+        "st":  false,
+        "id":  "057",
+        "vx":  [
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "T+0-30 min|Euphorie, rires, paresthésies",
+                   "T+30 min-2 h|Vertiges, ataxie, perte de conscience",
+                   "T+2-6 h|Asphyxie en pièce fermée"
+               ],
+        "se":  {
+                   "tox":  "Variable",
+                   "let":  "Asphyxie en espace clos",
+                   "conc":  "Peu contributif"
+               },
+        "cf":  [
+                   "056"
+               ],
+        "ad":  [
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Amandes amères, noyaux (amygdaline → cyanure)",
+        "c":  "Aliment",
+        "a":  "Cuisine",
+        "d":  "Environ 30–50 amandes amères mâchées ; 1 kg de noyaux d\u0027abricot",
+        "t":  "15 min–2 h",
+        "e":  "Blocage de la cytochrome oxydase : anoxie cellulaire, mort rapide",
+        "s":  "Haleine à l\u0027amande amère, rougeur, convulsions, mydriase",
+        "an":  "Hydroxocobalamine, thiosulfate, nitrite",
+        "m":  "+ mastication ou acide gastrique = libération de HCN",
+        "no":  "Le noyau d\u0027abricot est le vecteur domestique le plus accessible du cyanure",
+        "tg":  [
+                   "MORT",
+                   "CONVULS"
+               ],
+        "di":  3,
+        "st":  false,
+        "id":  "058",
+        "vx":  [
+                   "INGESTION"
+               ],
+        "ch":  [
+                   "T+0-30 min|Amertume, nausées, céphalées",
+                   "T+30 min-4 h|Vertiges, dyspnée, rougeur, convulsions",
+                   "T+4-12 h|Coma, acidose lactique, arrêt respiratoire"
+               ],
+        "se":  {
+                   "tox":  "3 noyaux d\u0027abricot",
+                   "let":  "20-30 noyaux",
+                   "conc":  "Cyanures \u003e 1 mg/L, lactates élevés"
+               },
+        "cf":  [
+                   "042"
+               ],
+        "ad":  [
+                   "HYDROXOCOBALAMINE",
+                   "OXYGENE"
+               ]
+    },
+    {
+        "n":  "Permanganate de potassium + glycérol",
+        "c":  "Mélange",
+        "a":  "Pharmacie, droguerie",
+        "d":  "Quelques grains + quelques gouttes",
+        "t":  "10–60 s",
+        "e":  "Réaction exothermique violente, inflammation, projections",
+        "s":  "Fumée, flamme, crépitement",
+        "an":  "Eau, couverture",
+        "m":  "Permanganate + glycérol (ou sucre, antigel) = combustion spontanée",
+        "no":  "Le classique de cours de chimie pour démarrer un feu sans allumette",
+        "tg":  "INFLAM",
+        "di":  3,
+        "st":  false,
+        "id":  "059",
+        "vx":  [
+                   "CUTANE",
+                   "INHALATION"
+               ],
+        "ch":  [
+                   "Immédiat|Chaleur, projection de flammes, brûlure",
+                   "T+1-6 h|Brûlure cutanée, irritation oculaire",
+                   "T+6-24 h|Surinfection, déshydratation si surface étendue"
+               ],
+        "se":  {
+                   "tox":  "Quelques gouttes de glycérol",
+                   "let":  "Brûlure étendue",
+                   "conc":  "Surface brûlée en % de surface corporelle"
+               },
+        "cf":  [
+
+               ],
+        "ad":  [
+                   "EAU"
+               ]
+    }
+]
