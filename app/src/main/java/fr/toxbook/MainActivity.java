@@ -1,0 +1,1248 @@
+package fr.toxbook;
+
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.StateListDrawable;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+
+public class MainActivity extends Activity {
+
+    private static final int BG      = 0xFF0B0C0E;
+    private static final int CARD    = 0xFF15171B;
+    private static final int CARD_ON = 0xFF1D2026;
+    private static final int LINE    = 0xFF262A31;
+    private static final int INK     = 0xFFF1EFEA;
+    private static final int MUT     = 0xFF8F8C86;
+    private static final int CHAMP   = 0xFFC6A567;
+    private static final int GOLD    = 0xFFC6A567;
+    private static final int GOLD_D  = 0x55C6A567;
+    private static final int WHITE   = 0xFFF1EFEA;
+    private static final int GREY    = 0xFF8F8C86;
+    private static final int RED     = 0xFFD9544D;
+    private static final int D1      = 0xFFD9544D;
+    private static final int D2      = 0xFFC97B3C;
+    private static final int D3      = 0xFFBFA04A;
+    private static final int D4      = 0xFF6E8B9E;
+    private static final int D5      = 0xFF6B6F76;
+
+    private static final String[] TAGS = {
+            "MORT","VOMI","CARDIAQUE","COMA","NEURO","CONVULS","HEMO",
+            "RESPIR","CAUSTIQUE","HALLU","CECITE","ACIDOSE","HYPOGLY",
+            "DIGESTIF","FOIE","REIN","INFLAM","DIVERS"};
+
+    private final List<JSONObject> all = new ArrayList<>();
+    private final List<JSONObject> shown = new ArrayList<>();
+    private final Set<String> activeTags = new HashSet<>();
+    private final List<TextView> chipViews = new ArrayList<>();
+    private final List<TextView> sortViews = new ArrayList<>();
+    private BaseAdapter adapter;
+    private TextView status;
+    private TextView stockChip;
+    private ListView list;
+    private FrameLayout rootView;
+    private Typeface serif;
+    private Typeface mono;
+    private String query = "";
+    private int sortMode = 0;
+    private boolean stockOnly = false;
+    private EditText searchField;
+    private LinearLayout filtresWrap;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            if (checkSelfPermission("android.permission.POST_NOTIFICATIONS") != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 1);
+            }
+        }
+        serif = Typeface.create("serif", Typeface.NORMAL);
+        mono = Typeface.MONOSPACE;
+
+        FrameLayout root = new FrameLayout(this);
+        rootView = root;
+        root.setBackgroundColor(BG);
+        getWindow().setStatusBarColor(BG);
+        getWindow().setNavigationBarColor(BG);
+
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        root.addView(col, new FrameLayout.LayoutParams(-1, -1));
+
+        col.addView(buildHeader());
+        col.addView(buildSearch());
+        col.addView(buildChips());
+        col.addView(buildSort());
+        col.addView(buildActions());
+
+        list = new ListView(this);
+        list.setDivider(null);
+        list.setDividerHeight(0);
+        list.setPadding(dp(14), dp(6), dp(14), dp(14));
+        list.setClipToPadding(false);
+        list.setSelector(android.R.color.transparent);
+        col.addView(list, new LinearLayout.LayoutParams(-1, 0, 1f));
+
+        adapter = new DossierAdapter();
+        list.setAdapter(adapter);
+
+        setContentView(root);
+
+        loadData();
+        filter();
+
+        list.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+            public void onItemClick(android.widget.AdapterView<?> p, View v, int pos, long id) {
+                // ouverture geree par le clic sur la carte
+            }
+        });
+
+        Lock.show(MainActivity.this, root);
+
+        final FrameLayout overlay = new FrameLayout(this);
+        overlay.setBackgroundColor(BG);
+        root.addView(overlay, new FrameLayout.LayoutParams(-1, -1));
+        playIntro(overlay);
+
+    }
+
+    private int sev(int d) {
+        if (d == 1) return D1;
+        if (d == 2) return D2;
+        if (d == 3) return D3;
+        if (d == 4) return D4;
+        return D5;
+    }
+
+    private void toggleFiltres() {
+        filtresWrap.setVisibility(filtresWrap.getVisibility() == android.view.View.GONE ? android.view.View.VISIBLE : android.view.View.GONE);
+    }
+
+    private View buildHeader() {
+        LinearLayout h = new LinearLayout(this);
+        h.setOrientation(LinearLayout.VERTICAL);
+        h.setPadding(dp(16), dp(18), dp(16), dp(6));
+
+        TextView kicker = new TextView(this);
+        kicker.setText("CONFIDENTIEL  //  DIFFUSION RESTREINTE");
+        kicker.setTypeface(mono);
+        kicker.setTextSize(9);
+        kicker.setLetterSpacing(0.3f);
+        kicker.setTextColor(RED);
+
+        TextView title = new TextView(this);
+        title.setText("TOXBOOK");
+        title.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+        title.setTextSize(28);
+        title.setLetterSpacing(0.02f);
+        title.setTextColor(INK);
+        title.setPadding(0, dp(4), 0, dp(10));
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+
+        status = new TextView(this);
+        status.setTypeface(mono);
+        status.setTextSize(11);
+        status.setTextColor(MUT);
+        status.setLayoutParams(new LinearLayout.LayoutParams(0, -2, 1f));
+
+        TextView filtre = new TextView(this);
+        filtre.setText("FILTRES");
+        filtre.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+        filtre.setTextSize(11);
+        filtre.setLetterSpacing(0.06f);
+        filtre.setTextColor(CHAMP);
+        filtre.setGravity(Gravity.CENTER);
+        filtre.setPadding(dp(14), dp(9), dp(14), dp(9));
+        GradientDrawable fb = new GradientDrawable();
+        fb.setColor(CARD);
+        fb.setCornerRadius(dp(20));
+        fb.setStroke(dp(1), LINE);
+        filtre.setBackground(fb);
+        filtre.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) { toggleFiltres(); }
+        });
+
+        row.addView(status);
+        row.addView(filtre);
+
+        h.addView(kicker);
+        h.addView(title);
+        h.addView(row);
+        return h;
+    }
+
+    private View buildSearch() {
+        LinearLayout wrap = new LinearLayout(this);
+        wrap.setOrientation(LinearLayout.VERTICAL);
+        wrap.setPadding(dp(16), dp(2), dp(16), dp(8));
+
+        EditText e = new EditText(this);
+        e.setHint("Poison, effet, antidote...");
+        e.setHintTextColor(0xFF6B6F76);
+        e.setTextColor(INK);
+        e.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+        e.setTextSize(15);
+        e.setSingleLine(true);
+        e.setBackground(searchBg());
+        e.setPadding(dp(16), 0, dp(16), 0);
+        e.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
+            public void onTextChanged(CharSequence s, int a, int b, int c) { query = s.toString(); filter(); }
+            public void afterTextChanged(Editable s) {}
+        });
+        searchField = e;
+        wrap.addView(e, new LinearLayout.LayoutParams(-1, dp(48)));
+        return wrap;
+    }
+
+    private View buildChips() {
+        HorizontalScrollView hs = new HorizontalScrollView(this);
+        hs.setHorizontalScrollBarEnabled(false);
+        hs.setPadding(dp(16), dp(4), dp(16), dp(2));
+        hs.setClipToPadding(false);
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        for (final String t : TAGS) {
+            final TextView c = chip(t);
+            c.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    if (activeTags.contains(t)) activeTags.remove(t); else activeTags.add(t);
+                    paintChip(c, activeTags.contains(t));
+                    filter();
+                }
+            });
+            chipViews.add(c);
+            row.addView(c);
+        }
+        hs.addView(row);
+        return hs;
+    }
+
+    private View buildSort() {
+        HorizontalScrollView hs = new HorizontalScrollView(this);
+        hs.setHorizontalScrollBarEnabled(false);
+        hs.setPadding(dp(16), dp(2), dp(16), dp(8));
+        hs.setClipToPadding(false);
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        String[] labels = {"DISCRETION", "A-Z", "DELAI"};
+        for (int i = 0; i < labels.length; i++) {
+            final int mode = i;
+            final TextView s = chip("TRI : " + labels[i]);
+            s.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    sortMode = mode;
+                    refreshSort();
+                    filter();
+                }
+            });
+            sortViews.add(s);
+            row.addView(s);
+        }
+
+        stockChip = chip("EN STOCK");
+        stockChip.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                stockOnly = !stockOnly;
+                paintChip(stockChip, stockOnly);
+                filter();
+            }
+        });
+        row.addView(stockChip);
+
+        hs.addView(row);
+        return hs;
+    }
+
+    private View buildActions() {
+        LinearLayout bar = new LinearLayout(this);
+        bar.setOrientation(LinearLayout.HORIZONTAL);
+        bar.setBackgroundColor(BG);
+        bar.setPadding(dp(12), dp(6), dp(12), dp(10));
+
+        TextView trousse = barBtn("TROUSSE");
+        trousse.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) { Trousse.show(MainActivity.this, rootView); }
+        });
+        bar.addView(trousse, poids());
+
+        TextView ajout = barBtn("+ FICHE");
+        ajout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Fiche.show(MainActivity.this, rootView, new Runnable() {
+                    public void run() { all.clear(); loadData(); filter(); }
+                });
+            }
+        });
+        bar.addView(ajout, poids());
+
+        TextView sauv = barBtn("SAUVEGARDE");
+        sauv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Sauvegarde.show(MainActivity.this, rootView, new Runnable() {
+                    public void run() { all.clear(); loadData(); filter(); }
+                });
+            }
+        });
+        bar.addView(sauv, poids());
+
+        return bar;
+    }
+
+    private TextView barBtn(String label) {
+        TextView b = new TextView(this);
+        b.setText(label);
+        b.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+        b.setTextSize(12);
+        b.setLetterSpacing(0.06f);
+        b.setGravity(Gravity.CENTER);
+        b.setTextColor(INK);
+        b.setPadding(dp(6), dp(13), dp(6), dp(13));
+        GradientDrawable d = new GradientDrawable();
+        d.setColor(CARD);
+        d.setCornerRadius(dp(12));
+        d.setStroke(dp(1), LINE);
+        b.setBackground(d);
+        return b;
+    }
+    private LinearLayout.LayoutParams poids() {
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, -2, 1f);
+        lp.rightMargin = dp(6);
+        return lp;
+    }
+
+    private TextView chip(String label) {
+        TextView c = new TextView(this);
+        c.setText(label);
+        c.setTypeface(mono);
+        c.setTextSize(9);
+        c.setLetterSpacing(0.12f);
+        c.setPadding(dp(10), dp(7), dp(10), dp(7));
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);
+        lp.rightMargin = dp(6);
+        c.setLayoutParams(lp);
+        paintChip(c, false);
+        return c;
+    }
+
+    private void paintChip(TextView c, boolean on) {
+        GradientDrawable d = new GradientDrawable();
+        d.setCornerRadius(dp(3));
+        d.setStroke(dp(1), on ? GOLD : 0x33D4AF37);
+        d.setColor(on ? 0x22D4AF37 : 0xFF0C0C0C);
+        c.setBackground(d);
+        c.setTextColor(on ? GOLD : GREY);
+    }
+
+    private void refreshSort() {
+        for (int i = 0; i < sortViews.size(); i++) paintChip(sortViews.get(i), i == sortMode);
+    }
+
+    private GradientDrawable searchBg() {
+        GradientDrawable d = new GradientDrawable();
+        d.setColor(CARD);
+        d.setCornerRadius(dp(4));
+        d.setStroke(dp(1), GOLD_D);
+        return d;
+    }    private int dp(int v) {
+        return (int) (v * getResources().getDisplayMetrics().density);
+    }
+
+    private void normaliseTags(JSONObject o) {
+        Object raw = o.opt("tg");
+        if (raw == null || raw == JSONObject.NULL) { o.remove("tg"); return; }
+        if (raw instanceof JSONArray) return;
+        JSONArray ta = new JSONArray();
+        for (String p : raw.toString().split("[,;\s]+")) if (!p.trim().isEmpty()) ta.put(p.trim());
+        try { o.put("tg", ta); } catch (Exception ignored) {}
+    }
+
+    private void loadData() {
+        try {
+            File loc = new File(getFilesDir(), "locales.json");
+            if (!loc.exists()) {
+                InputStream is = getAssets().open("poisons.json");
+                BufferedReader br0 = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                StringBuilder sb0 = new StringBuilder();
+                String l0;
+                while ((l0 = br0.readLine()) != null) sb0.append(l0);
+                br0.close();
+                FileOutputStream fo0 = new FileOutputStream(loc);
+                fo0.write(sb0.toString().getBytes("UTF-8"));
+                fo0.close();
+                File st0 = stockFile();
+                if (!st0.exists()) { FileOutputStream sf0 = new FileOutputStream(st0); sf0.close(); }
+            }
+            BufferedReader br = new BufferedReader(new InputStreamReader(new java.io.FileInputStream(loc), "UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) sb.append(line);
+            br.close();
+            JSONArray arr = new JSONArray(sb.toString());
+            for (int i = 0; i < arr.length(); i++) { JSONObject o = arr.getJSONObject(i); normaliseTags(o); all.add(o); }
+            applyStock();
+            status.setText(all.size() + " dossiers  \u00B7  adulte 70 kg");
+        } catch (Exception e) {
+            status.setText("ERREUR : " + e.getMessage());
+        }
+    }
+
+    private void supprime(JSONObject cible) {
+        String nom = cible.optString("n");
+        try {
+            File f = new File(getFilesDir(), "locales.json");
+            if (f.exists()) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(new java.io.FileInputStream(f), "UTF-8"));
+                StringBuilder sb = new StringBuilder();
+                String l;
+                while ((l = br.readLine()) != null) sb.append(l);
+                br.close();
+                JSONArray arr = new JSONArray(sb.toString());
+                JSONArray out = new JSONArray();
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    if (!o.optString("n").equals(nom)) out.put(o);
+                }
+                FileOutputStream fo = new FileOutputStream(f);
+                fo.write(out.toString().getBytes("UTF-8"));
+                fo.close();
+            }
+            all.clear();
+            loadData();
+            filter();
+            saveStock();
+            toast("Dossier supprime");
+        } catch (Exception e) {
+            toast("Echec : " + e.getMessage());
+        }
+    }
+
+    private void chargeLocales() {
+        try {
+            File f = new File(getFilesDir(), "locales.json");
+            if (!f.exists()) return;
+            BufferedReader br = new BufferedReader(new InputStreamReader(new java.io.FileInputStream(f), "UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            String l;
+            while ((l = br.readLine()) != null) sb.append(l);
+            br.close();
+            if (sb.length() == 0) return;
+            JSONArray arr = new JSONArray(sb.toString());
+            for (int i = 0; i < arr.length(); i++) { JSONObject o = arr.getJSONObject(i); normaliseTags(o); all.add(o); }
+        } catch (Exception ignored) {}
+    }
+
+    private File stockFile() {
+        return new File(getFilesDir(), "stock.txt");
+    }
+
+    private void applyStock() {
+        try {
+            File f = stockFile();
+            if (!f.exists()) return;
+            BufferedReader br = new BufferedReader(new InputStreamReader(new java.io.FileInputStream(f), "UTF-8"));
+            Set<String> names = new HashSet<>();
+            String l;
+            while ((l = br.readLine()) != null) if (!l.trim().isEmpty()) names.add(l.trim());
+            br.close();
+            for (JSONObject o : all) o.put("st", names.contains(o.optString("n")));
+        } catch (Exception ignored) {}
+    }
+
+    private void saveStock() {
+        try {
+            FileOutputStream fo = new FileOutputStream(stockFile());
+            for (JSONObject o : all) {
+                if (o.optBoolean("st")) {
+                    fo.write((o.optString("n") + "\n").getBytes("UTF-8"));
+                }
+            }
+            fo.close();
+        } catch (Exception ignored) {}
+    }
+
+    private static String norm(String s) {
+        if (s == null) return "";
+        String d = java.text.Normalizer.normalize(s, java.text.Normalizer.Form.NFD);
+        d = d.replaceAll("\\p{M}+", "");
+        d = d.replace("\u0153", "oe").replace("\u0152", "oe").replace("\u00e6", "ae").replace("\u00c6", "AE");
+        return d.toLowerCase(Locale.FRENCH);
+    }
+
+    private void filter() {
+        String s = norm(query).trim();
+        shown.clear();
+        for (JSONObject o : all) {
+            if (stockOnly && !o.optBoolean("st")) continue;
+
+            boolean tagOk = true;
+            if (!activeTags.isEmpty()) {
+                tagOk = false;
+                Object tgRaw = o.opt("tg");
+                java.util.List<String> tags = new java.util.ArrayList<>();
+                if (tgRaw instanceof JSONArray) {
+                    JSONArray ta = (JSONArray) tgRaw;
+                    for (int i = 0; i < ta.length(); i++) tags.add(ta.optString(i));
+                } else if (tgRaw != null && tgRaw != JSONObject.NULL) {
+                    for (String p : tgRaw.toString().split("[,;\s]+")) if (!p.trim().isEmpty()) tags.add(p.trim());
+                }
+                for (String t : tags) {
+                    if (activeTags.contains(t)) { tagOk = true; break; }
+                }
+            }
+            if (!tagOk) continue;
+
+            if (!s.isEmpty()) {
+                String hay = norm(o.optString("n") + " " + o.optString("c") + " " + o.optString("a") + " "
+                        + o.optString("e") + " " + o.optString("s") + " " + o.optString("an") + " "
+                        + o.optString("m") + " " + o.optString("no"));
+                if (!hay.contains(s)) continue;
+            }
+            shown.add(o);
+        }
+
+        Collections.sort(shown, new Comparator<JSONObject>() {
+            public int compare(JSONObject a, JSONObject b) {
+                if (sortMode == 1) return a.optString("n").compareToIgnoreCase(b.optString("n"));
+                if (sortMode == 2) return rank(b.optString("t")) - rank(a.optString("t"));
+                return b.optInt("di") - a.optInt("di");
+            }
+        });
+
+        adapter.notifyDataSetChanged();
+        int n = shown.size();
+        status.setText(n + (n > 1 ? " dossiers" : " dossier") + "  \u00B7  sur " + all.size());
+    }
+
+    private int rank(String t) {
+        String s = t.toLowerCase(Locale.FRENCH);
+        if (s.contains("jour")) return 5;
+        if (s.contains("24 h") || s.contains("12 h")) return 4;
+        if (s.contains("h")) return 3;
+        if (s.contains("min")) return 2;
+        return 1;
+    }
+
+    private class DossierAdapter extends BaseAdapter {
+        public int getCount() { return shown.size(); }
+        public Object getItem(int p) { return shown.get(p); }
+        public long getItemId(int p) { return p; }
+
+        public View getView(int pos, View reuse, ViewGroup parent) {
+            final JSONObject o = shown.get(pos);
+            int di = o.optInt("di", 5);
+
+            LinearLayout wrap = new LinearLayout(MainActivity.this);
+            wrap.setOrientation(LinearLayout.HORIZONTAL);
+            wrap.setPadding(0, 0, 0, dp(8));
+
+            LinearLayout card = new LinearLayout(MainActivity.this);
+            card.setOrientation(LinearLayout.HORIZONTAL);
+            card.setBackground(cardBg());
+            card.setElevation(dp(2));
+            card.setMinimumHeight(dp(76));
+
+            View band = new View(MainActivity.this);
+            GradientDrawable bd = new GradientDrawable();
+            bd.setColor(sev(di));
+            bd.setCornerRadii(new float[]{dp(14),dp(14),0,0,0,0,dp(14),dp(14)});
+            band.setBackground(bd);
+            card.addView(band, new LinearLayout.LayoutParams(dp(4), -1));
+
+            LinearLayout col = new LinearLayout(MainActivity.this);
+            col.setOrientation(LinearLayout.VERTICAL);
+            col.setPadding(dp(14), dp(12), dp(12), dp(12));
+
+            LinearLayout top = new LinearLayout(MainActivity.this);
+            top.setOrientation(LinearLayout.HORIZONTAL);
+            top.setGravity(Gravity.CENTER_VERTICAL);
+
+            TextView ref = new TextView(MainActivity.this);
+            String fid = o.optString("id", ""); if (fid.length() == 0) fid = String.format(Locale.FRENCH, "%03d", pos + 1);
+            ref.setText(fid);
+            ref.setTypeface(mono);
+            ref.setTextSize(10);
+            ref.setLetterSpacing(0.1f);
+            ref.setTextColor(sev(di));
+            ref.setPadding(0, 0, dp(8), 0);
+
+            TextView name = new TextView(MainActivity.this);
+            name.setText(o.optString("n"));
+            name.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+            name.setTextSize(17);
+            name.setTextColor(INK);
+            name.setMaxLines(2);
+            name.setLayoutParams(new LinearLayout.LayoutParams(0, -2, 1f));
+
+            final TextView star = new TextView(MainActivity.this);
+            star.setTypeface(mono);
+            star.setTextSize(16);
+            star.setGravity(Gravity.CENTER);
+            star.setPadding(dp(8), 0, dp(2), 0);
+            star.setText(o.optBoolean("st") ? "\u25C6" : "\u25C7");
+            star.setTextColor(o.optBoolean("st") ? CHAMP : 0xFF4A4F57);
+            star.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    boolean nv = !o.optBoolean("st");
+                    try { o.put("st", nv); } catch (Exception ignored) {}
+                    star.setText(nv ? "\u25C6" : "\u25C7");
+                    star.setTextColor(nv ? CHAMP : 0xFF4A4F57);
+                    saveStock();
+                    if (stockOnly) filter();
+                }
+            });
+
+            top.addView(ref);
+            top.addView(name);
+            top.addView(star);
+
+            LinearLayout meta = new LinearLayout(MainActivity.this);
+            meta.setOrientation(LinearLayout.HORIZONTAL);
+            meta.setGravity(Gravity.CENTER_VERTICAL);
+            meta.setPadding(0, dp(4), 0, 0);
+
+            TextView cat = new TextView(MainActivity.this);
+            cat.setText(o.optString("c").toUpperCase(Locale.FRENCH));
+            cat.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+            cat.setTextSize(10);
+            cat.setLetterSpacing(0.08f);
+            cat.setTextColor(MUT);
+
+            TextView sep = new TextView(MainActivity.this);
+            sep.setText("  \u00B7  ");
+            sep.setTextSize(10);
+            sep.setTextColor(0xFF4A4F57);
+
+            TextView acc = new TextView(MainActivity.this);
+            acc.setText(o.optString("a"));
+            acc.setTextSize(11);
+            acc.setTextColor(0xFF6B6F76);
+            acc.setSingleLine(true);
+            acc.setEllipsize(android.text.TextUtils.TruncateAt.END);
+            acc.setLayoutParams(new LinearLayout.LayoutParams(0, -2, 1f));
+
+            meta.addView(cat);
+            meta.addView(sep);
+            meta.addView(acc);
+
+            col.addView(top);
+            col.addView(meta);
+
+            card.addView(col, new LinearLayout.LayoutParams(0, -2, 1f));
+
+            card.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) { open(o); }
+            });
+            card.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, android.view.MotionEvent e) {
+                    if (e.getAction() == android.view.MotionEvent.ACTION_DOWN) v.animate().scaleX(0.98f).scaleY(0.98f).setDuration(100).start();
+                    else if (e.getAction() == android.view.MotionEvent.ACTION_UP || e.getAction() == android.view.MotionEvent.ACTION_CANCEL) v.animate().scaleX(1f).scaleY(1f).setDuration(150).start();
+                    return false;
+                }
+            });
+
+            wrap.addView(card, new LinearLayout.LayoutParams(-1, -2));
+            return wrap;
+        }
+
+        private GradientDrawable cardBg() {
+            GradientDrawable d = new GradientDrawable();
+            d.setColor(CARD);
+            d.setCornerRadius(dp(14));
+            d.setStroke(dp(1), LINE);
+            return d;
+        }    }    private void open(final JSONObject o) {
+        final Dialog d = new Dialog(this);
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+        box.setBackgroundColor(0xFF0A0A0A);
+        box.setPadding(dp(20), dp(20), dp(20), dp(16));
+
+        TextView stamp = new TextView(this);
+        stamp.setText("CONFIDENTIEL  //  DIFFUSION RESTREINTE");
+        stamp.setTypeface(mono);
+        stamp.setTextSize(9);
+        stamp.setLetterSpacing(0.3f);
+        stamp.setTextColor(RED);
+
+        TextView name = new TextView(this);
+        name.setText(o.optString("n"));
+        name.setTypeface(Typeface.create("serif", Typeface.BOLD));
+        name.setTextSize(24);
+        name.setTextColor(GOLD);
+        name.setPadding(0, dp(8), 0, dp(8));
+
+        View rule = new View(this);
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{GOLD, 0x00D4AF37});
+        rule.setBackground(gd);
+
+        LinearLayout body = new LinearLayout(this);
+        body.setOrientation(LinearLayout.VERTICAL);
+
+        add(body, "CATEGORIE", o.optString("c").toUpperCase(Locale.FRENCH));
+        body.addView(vxBlock(o));
+        body.addView(seuilBlock(o));
+        add(body, "DELAI D'ACTION", o.optString("t"));
+        add(body, "EFFETS", o.optString("e"));
+        body.addView(chronoSignesBlock(o));
+        add(body, "ANTIDOTE / TRAITEMENT", o.optString("an"));
+        body.addView(adBlock(o));
+        add(body, "MELANGE / REACTION", o.optString("m"));
+        body.addView(cfBlock(o, d));
+        add(body, "NOTES", o.optString("no"));
+
+
+        ScrollView sv = new ScrollView(this);
+        sv.addView(body);
+
+        LinearLayout bar = new LinearLayout(this);
+        bar.setOrientation(LinearLayout.HORIZONTAL);
+
+        TextView stockBtn = new TextView(this);
+        stockBtn.setTypeface(mono);
+        stockBtn.setTextSize(11);
+        stockBtn.setGravity(Gravity.CENTER);
+        stockBtn.setPadding(dp(10), dp(13), dp(10), dp(13));
+        paintStockBtn(stockBtn, o.optBoolean("st"));
+        stockBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                boolean nv = !o.optBoolean("st");
+                try { o.put("st", nv); } catch (Exception ignored) {}
+                paintStockBtn((TextView) v, nv);
+                saveStock();
+                filter();
+            }
+        });
+
+        TextView close = new TextView(this);
+        close.setText("FERMER LE DOSSIER");
+        close.setTypeface(mono);
+        close.setTextSize(12);
+        close.setLetterSpacing(0.15f);
+        close.setGravity(Gravity.CENTER);
+        close.setTextColor(0xFF060606);
+        close.setPadding(dp(14), dp(13), dp(14), dp(13));
+        GradientDrawable cb = new GradientDrawable();
+        cb.setColor(GOLD);
+        cb.setCornerRadius(dp(3));
+        close.setBackground(cb);
+        close.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) { d.dismiss(); }
+        });
+
+        LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(0, -2, 1f);
+        blp.rightMargin = dp(8);
+        bar.addView(stockBtn, blp);
+        if (o.optBoolean("local")) {
+            TextView del = new TextView(this);
+            del.setText("SUPPR");
+            del.setTypeface(mono);
+            del.setTextSize(11);
+            del.setGravity(Gravity.CENTER);
+            del.setTextColor(RED);
+            del.setPadding(dp(10), dp(13), dp(10), dp(13));
+            GradientDrawable db = new GradientDrawable();
+            db.setColor(0xFF101010);
+            db.setCornerRadius(dp(3));
+            db.setStroke(dp(1), 0x66B3202A);
+            del.setBackground(db);
+            del.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    new android.app.AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Supprimer ce dossier ?")
+                            .setMessage(o.optString("n"))
+                            .setPositiveButton("SUPPRIMER", new android.content.DialogInterface.OnClickListener() {
+                                public void onClick(android.content.DialogInterface dg, int w) {
+                                    supprime(o);
+                                    d.dismiss();
+                                }
+                            })
+                            .setNegativeButton("ANNULER", null)
+                            .show();
+                }
+            });
+            LinearLayout.LayoutParams dlp = new LinearLayout.LayoutParams(-2, -2);
+            dlp.rightMargin = dp(8);
+            bar.addView(del, dlp);
+        }
+
+        bar.addView(close, new LinearLayout.LayoutParams(0, -2, 1.6f));
+
+        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, dp(1));
+        rlp.topMargin = dp(4);
+        rlp.bottomMargin = dp(12);
+
+        box.addView(stamp);
+        box.addView(name);
+        box.addView(rule, rlp);
+        box.addView(sv, new LinearLayout.LayoutParams(-1, 0, 1f));
+        box.addView(bar, new LinearLayout.LayoutParams(-1, -2));
+
+        d.setContentView(box);
+        Window w = d.getWindow();
+        if (w != null) {
+            w.setBackgroundDrawableResource(android.R.color.black);
+            w.setLayout(-1, -1);
+        }
+        d.show();
+    }
+
+    private void paintStockBtn(TextView t, boolean on) {
+        GradientDrawable d = new GradientDrawable();
+        d.setCornerRadius(dp(3));
+        d.setStroke(dp(1), on ? GOLD : 0x44D4AF37);
+        d.setColor(on ? 0x22D4AF37 : 0xFF101010);
+        t.setBackground(d);
+        t.setTextColor(on ? GOLD : GREY);
+        t.setText(on ? "\u25C6 EN STOCK" : "\u25C7 MARQUER EN STOCK");
+    }
+
+    private View chronoBlock(final JSONObject o) {
+        LinearLayout wrap = new LinearLayout(this);
+        wrap.setOrientation(LinearLayout.VERTICAL);
+        wrap.setPadding(0, dp(16), 0, 0);
+
+        TextView l = new TextView(this);
+        l.setText("CHRONO DE DELAI");
+        l.setTypeface(mono);
+        l.setTextSize(9);
+        l.setLetterSpacing(0.25f);
+        l.setTextColor(GOLD);
+
+        TextView ref = new TextView(this);
+        ref.setText("Delai de la fiche : " + o.optString("t"));
+        ref.setTypeface(mono);
+        ref.setTextSize(10);
+        ref.setTextColor(GREY);
+        ref.setPadding(0, dp(6), 0, dp(8));
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        long[] durees = {900000L, 3600000L, 14400000L, 86400000L};
+        String[] labels = {"15 MIN", "1 H", "4 H", "24 H"};
+        for (int i = 0; i < durees.length; i++) {
+            final long ms = durees[i];
+            TextView b = chip(labels[i]);
+            b.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) { arm(o, ms); }
+            });
+            row.addView(b);
+        }
+
+        TextView cancel = chip("ANNULER");
+        cancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) { disarm(); }
+        });
+        row.addView(cancel);
+
+        wrap.addView(l);
+        wrap.addView(ref);
+        wrap.addView(row);
+        return wrap;
+    }
+
+    private void arm(JSONObject o, long ms) {
+        try {
+            ChronoReceiver.channel(this);
+            AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+            Intent i = new Intent(this, ChronoReceiver.class);
+            i.putExtra("nom", o.optString("n"));
+            i.putExtra("dose", o.optString("t"));
+            int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+            if (android.os.Build.VERSION.SDK_INT >= 23) flags |= PendingIntent.FLAG_IMMUTABLE;
+            PendingIntent pi = PendingIntent.getBroadcast(this, 42, i, flags);
+            long at = System.currentTimeMillis() + ms;
+            if (am == null) { toast("Alarme indisponible"); return; }
+            if (android.os.Build.VERSION.SDK_INT >= 31) {
+                if (am.canScheduleExactAlarms()) am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, pi);
+                else am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, pi);
+            } else if (android.os.Build.VERSION.SDK_INT >= 23) {
+                am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, pi);
+            } else {
+                am.setExact(AlarmManager.RTC_WAKEUP, at, pi);
+            }
+            toast("Chrono arme : " + (ms / 60000) + " min");
+        } catch (Exception e) {
+            toast("Echec : " + e.getMessage());
+        }
+    }
+
+    private void disarm() {
+        try {
+            AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+            Intent i = new Intent(this, ChronoReceiver.class);
+            int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+            if (android.os.Build.VERSION.SDK_INT >= 23) flags |= PendingIntent.FLAG_IMMUTABLE;
+            PendingIntent pi = PendingIntent.getBroadcast(this, 42, i, flags);
+            if (am != null) am.cancel(pi);
+            toast("Chrono annule");
+        } catch (Exception ignored) {}
+    }
+
+    private void toast(String s) {
+        android.widget.Toast.makeText(this, s, android.widget.Toast.LENGTH_SHORT).show();
+    }
+
+    private View calcBlock(final JSONObject o) {
+        LinearLayout wrap = new LinearLayout(this);
+        wrap.setOrientation(LinearLayout.VERTICAL);
+        wrap.setPadding(0, dp(16), 0, 0);
+
+        TextView l = new TextView(this);
+        l.setText("CALCULATEUR PAR POIDS");
+        l.setTypeface(mono);
+        l.setTextSize(9);
+        l.setLetterSpacing(0.25f);
+        l.setTextColor(GOLD);
+
+        final TextView out = new TextView(this);
+        out.setTypeface(mono);
+        out.setTextSize(12);
+        out.setTextColor(WHITE);
+        out.setPadding(0, dp(8), 0, 0);
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setPadding(0, dp(8), 0, 0);
+
+        final EditText w = new EditText(this);
+        w.setText("70");
+        w.setTextColor(WHITE);
+        w.setTypeface(mono);
+        w.setTextSize(13);
+        w.setSingleLine(true);
+        w.setBackground(searchBg());
+        w.setPadding(dp(10), dp(8), dp(10), dp(8));
+        w.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
+        w.setLayoutParams(new LinearLayout.LayoutParams(dp(80), -2));
+
+        TextView kg = new TextView(this);
+        kg.setText("  KG");
+        kg.setTypeface(mono);
+        kg.setTextSize(11);
+        kg.setTextColor(GREY);
+
+        row.addView(w);
+        row.addView(kg);
+
+        w.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
+            public void onTextChanged(CharSequence s, int a, int b, int c) { out.setText(calc(o.optString("d"), s.toString())); }
+            public void afterTextChanged(Editable s) {}
+        });
+
+        wrap.addView(l);
+        wrap.addView(row);
+        wrap.addView(out);
+        out.setText(calc(o.optString("d"), "70"));
+        return wrap;
+    }
+
+    private String calc(String dose, String poids) {
+        double kg;
+        try { kg = Double.parseDouble(poids.trim()); } catch (Exception e) { return "Poids invalide."; }
+        if (kg <= 0 || kg > 300) return "Poids invalide.";
+
+        String s = dose.replace(',', '.');
+        java.util.regex.Matcher m = java.util.regex.Pattern
+                .compile("([0-9]+(?:\\.[0-9]+)?)\\s*(mg|g|mL)\\s*/\\s*kg")
+                .matcher(s);
+        if (m.find()) {
+            double v = Double.parseDouble(m.group(1)) * kg;
+            String u = m.group(2);
+            String aff;
+            if (u.equals("g")) aff = fmt(v) + " g";
+            else if (u.equals("mg")) aff = fmt(v) + " mg  (" + fmt(v / 1000) + " g)";
+            else aff = fmt(v) + " mL";
+            return "Seuil pour " + fmt(kg) + " kg : " + aff;
+        }
+
+        m = java.util.regex.Pattern.compile("([0-9]+(?:\\.[0-9]+)?)\\s*g\\b").matcher(s);
+        if (m.find()) return "Dose absolue : " + m.group(1) + " g (independante du poids)";
+
+        return "Pas de seuil chiffre exploitable dans cette fiche.";
+    }
+
+    private String fmt(double v) {
+        if (v == Math.floor(v)) return String.valueOf((long) v);
+        return String.format(Locale.FRENCH, "%.1f", v);
+    }
+
+    private JSONObject byId(String id) {
+        if (id == null) return null;
+        for (JSONObject x : all) { if (id.equals(x.optString("id"))) return x; }
+        return null;
+    }
+
+    private void reopen(String id) {
+        JSONObject x = byId(id);
+        if (x == null) { toast("Fiche absente"); return; }
+        open(x);
+    }
+
+    private View vxBlock(final JSONObject o) {
+        LinearLayout wrap = new LinearLayout(this);
+        wrap.setOrientation(LinearLayout.VERTICAL);
+        wrap.setPadding(0, dp(4), 0, 0);
+        JSONArray arr = o.optJSONArray("vx");
+        if (arr == null || arr.length() == 0) return wrap;
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        for (int i = 0; i < arr.length(); i++) {
+            TextView b = chip(arr.optString(i));
+            paintChip(b, true);
+            row.addView(b);
+        }
+        HorizontalScrollView h = new HorizontalScrollView(this);
+        h.setHorizontalScrollBarEnabled(false);
+        h.addView(row);
+        wrap.addView(h);
+        return wrap;
+    }
+
+    private void ligneSeuil(LinearLayout p, String lab, String val) {
+        if (val == null || val.trim().isEmpty()) return;
+        TextView l = new TextView(this);
+        l.setText(lab);
+        l.setTypeface(mono);
+        l.setTextSize(9);
+        l.setLetterSpacing(0.2f);
+        l.setTextColor(GOLD_D);
+        l.setPadding(0, dp(6), 0, dp(1));
+        TextView v = new TextView(this);
+        v.setText(val);
+        v.setTextSize(13);
+        v.setTextColor(0xFFDADADA);
+        p.addView(l);
+        p.addView(v);
+    }
+
+    private View seuilBlock(final JSONObject o) {
+        LinearLayout wrap = new LinearLayout(this);
+        wrap.setOrientation(LinearLayout.VERTICAL);
+        JSONObject se = o.optJSONObject("se");
+        if (se != null) {
+            ligneSeuil(wrap, "TOXIQUE", se.optString("tox"));
+            ligneSeuil(wrap, "MORTEL", se.optString("let"));
+            ligneSeuil(wrap, "TERRAIN / MARQUEUR", se.optString("conc"));
+        }
+        wrap.addView(calcBlock(o));
+        return wrap;
+    }
+
+    private View chronoSignesBlock(final JSONObject o) {
+        LinearLayout wrap = new LinearLayout(this);
+        wrap.setOrientation(LinearLayout.VERTICAL);
+        JSONArray arr = o.optJSONArray("ch");
+        if (arr == null || arr.length() == 0) return wrap;
+        for (int i = 0; i < arr.length(); i++) {
+            String e = arr.optString(i);
+            int p = e.indexOf('|');
+            String h = p > 0 ? e.substring(0, p) : "";
+            String t = p > 0 ? e.substring(p + 1) : e;
+            LinearLayout l = new LinearLayout(this);
+            l.setOrientation(LinearLayout.HORIZONTAL);
+            l.setPadding(0, dp(5), 0, 0);
+            View bar = new View(this);
+            bar.setBackgroundColor(GOLD_D);
+            LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(dp(2), -1);
+            blp.rightMargin = dp(8);
+            l.addView(bar, blp);
+            LinearLayout col = new LinearLayout(this);
+            col.setOrientation(LinearLayout.VERTICAL);
+            TextView hh = new TextView(this);
+            hh.setText(h);
+            hh.setTypeface(mono);
+            hh.setTextSize(9);
+            hh.setLetterSpacing(0.15f);
+            hh.setTextColor(GOLD);
+            TextView tt = new TextView(this);
+            tt.setText(t);
+            tt.setTextSize(13);
+            tt.setTextColor(0xFFDADADA);
+            tt.setPadding(0, dp(1), 0, dp(3));
+            col.addView(hh);
+            col.addView(tt);
+            l.addView(col);
+            wrap.addView(l);
+        }
+        return wrap;
+    }
+
+    private View adBlock(final JSONObject o) {
+        LinearLayout wrap = new LinearLayout(this);
+        wrap.setOrientation(LinearLayout.VERTICAL);
+        wrap.setPadding(0, dp(4), 0, 0);
+        JSONArray arr = o.optJSONArray("ad");
+        if (arr == null || arr.length() == 0) return wrap;
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        for (int i = 0; i < arr.length(); i++) {
+            final String nom = arr.optString(i);
+            TextView b = chip(nom);
+            paintChip(b, true);
+            b.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) { Trousse.showFor(MainActivity.this, rootView, nom); }
+            });
+            row.addView(b);
+        }
+        HorizontalScrollView h = new HorizontalScrollView(this);
+        h.setHorizontalScrollBarEnabled(false);
+        h.addView(row);
+        wrap.addView(h);
+        return wrap;
+    }
+
+    private View cfBlock(final JSONObject o, final Dialog dlg) {
+        LinearLayout wrap = new LinearLayout(this);
+        wrap.setOrientation(LinearLayout.VERTICAL);
+        wrap.setPadding(0, dp(4), 0, 0);
+        JSONArray arr = o.optJSONArray("cf");
+        if (arr == null || arr.length() == 0) return wrap;
+        TextView l = new TextView(this);
+        l.setText("A NE PAS CONFONDRE");
+        l.setTypeface(mono);
+        l.setTextSize(9);
+        l.setLetterSpacing(0.25f);
+        l.setTextColor(RED);
+        wrap.addView(l);
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setPadding(0, dp(3), 0, 0);
+        for (int i = 0; i < arr.length(); i++) {
+            final String id = arr.optString(i);
+            JSONObject x = byId(id);
+            String nom = x == null ? id : x.optString("n");
+            if (nom.length() > 26) nom = nom.substring(0, 24) + "..";
+            TextView b = chip(nom);
+            b.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    if (dlg != null) dlg.dismiss();
+                    reopen(id);
+                }
+            });
+            row.addView(b);
+        }
+        HorizontalScrollView h = new HorizontalScrollView(this);
+        h.setHorizontalScrollBarEnabled(false);
+        h.addView(row);
+        wrap.addView(h);
+        return wrap;
+    }
+
+    private void add(LinearLayout parent, String label, String value) {
+        if (value == null || value.trim().isEmpty() || value.trim().equals("ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â")) return;
+
+        TextView l = new TextView(this);
+        l.setText(label);
+        l.setTypeface(mono);
+        l.setTextSize(9);
+        l.setLetterSpacing(0.25f);
+        l.setTextColor(GOLD_D);
+        l.setPadding(0, dp(12), 0, dp(3));
+
+        TextView v = new TextView(this);
+        v.setText(value);
+        v.setTextSize(14);
+        v.setTextColor(0xFFDADADA);
+        v.setLineSpacing(dp(3), 1f);
+
+        parent.addView(l);
+        parent.addView(v);
+    }
+
+    private void playIntro(final FrameLayout overlay) {
+        final TextView gun = new TextView(this);
+        gun.setText("\u25CF");
+        gun.setTextSize(90);
+        gun.setTextColor(0xFF151515);
+        gun.setGravity(Gravity.CENTER);
+        gun.setAlpha(0f);
+        overlay.setClickable(true);
+        overlay.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, android.view.MotionEvent e) { return true; }
+        });
+        overlay.addView(gun, new FrameLayout.LayoutParams(-1, -1));
+
+        final TextView zero = new TextView(this);
+        zero.setText("007");
+        zero.setTypeface(Typeface.create("serif", Typeface.BOLD));
+        zero.setTextSize(64);
+        zero.setTextColor(GOLD);
+        zero.setGravity(Gravity.CENTER);
+        zero.setLetterSpacing(0.2f);
+        zero.setAlpha(0f);
+        overlay.addView(zero, new FrameLayout.LayoutParams(-1, -1));
+
+        final TextView sub = new TextView(this);
+        sub.setText("T O X B O O K");
+        sub.setTypeface(mono);
+        sub.setTextSize(12);
+        sub.setLetterSpacing(0.5f);
+        sub.setTextColor(WHITE);
+        sub.setGravity(Gravity.CENTER);
+        sub.setAlpha(0f);
+        FrameLayout.LayoutParams slp = new FrameLayout.LayoutParams(-1, -2);
+        slp.gravity = Gravity.CENTER;
+        slp.topMargin = dp(120);
+        overlay.addView(sub, slp);
+
+        gun.animate().alpha(1f).setDuration(500).start();
+        zero.animate().alpha(1f).setStartDelay(300).setDuration(500).start();
+        sub.animate().alpha(1f).setStartDelay(700).setDuration(400).start();
+
+        overlay.postDelayed(new Runnable() {
+            public void run() {
+                overlay.animate().alpha(0f).setDuration(600).withEndAction(new Runnable() {
+                    public void run() { overlay.setVisibility(View.GONE); }
+                }).start();
+            }
+        }, 1900);
+    }
+}
